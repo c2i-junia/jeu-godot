@@ -1,3 +1,19 @@
-[gd_scene format=3 uid="uid://v3bqhdbf3e71"]
+[gd_scene load_steps=5 format=3 uid="uid://v3bqhdbf3e71"]
+
+[ext_resource type="Script" path="res://scripts/PlayerMovement.gd" id="1_f6pfb"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_e312f"]
+
+[sub_resource type="GDScript" id="GDScript_vsnvs"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_uc3hj"]
+size = Vector2(50, 50)
 
 [node name="World" type="Node2D"]
+material = SubResource("CanvasItemMaterial_e312f")
+position = Vector2(244, 146)
+script = SubResource("GDScript_vsnvs")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = SubResource("PlaceholderTexture2D_uc3hj")
+script = ExtResource("1_f6pfb")

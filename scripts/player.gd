@@ -1,7 +1,7 @@
 extends CharacterBody2D
 
 
-const SPEED = 300.0
+const SPEED = 200.0
 var DEADZONE = 0.2
 
 
@@ -16,7 +16,7 @@ func _physics_process(delta):
 	move_and_slide()
 	
 	
-	####################################################################33
+	######################################################################
 	##On récupère les axes de déplacement de la manette
 	#var movementVector = Vector2(Input.get_joy_axis(0, JOY_AXIS_LEFT_X), Input.get_joy_axis(0,JOY_AXIS_LEFT_Y))
 	#

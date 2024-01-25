@@ -1,8 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://v3bqhdbf3e71"]
+[gd_scene load_steps=9 format=3 uid="uid://v3bqhdbf3e71"]
 
 [ext_resource type="PackedScene" uid="uid://j7atxpk7qhc4" path="res://scenes/player.tscn" id="1_70qmu"]
 [ext_resource type="Texture2D" uid="uid://2t8ok1wr48qn" path="res://assets/grass-tileset.png" id="1_tq32y"]
 [ext_resource type="PackedScene" uid="uid://bqwhsrsfxwrl3" path="res://scenes/rock.tscn" id="3_jwu2t"]
+[ext_resource type="Texture2D" uid="uid://bj6w14m6dps6n" path="res://assets/rock.svg" id="4_w8hhx"]
+[ext_resource type="Script" path="res://scripts/PickUpItems.gd" id="4_xaukq"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_y5lbg"]
 texture = ExtResource("1_tq32y")
@@ -225,6 +227,9 @@ physics_layer_0/collision_layer = 0
 physics_layer_0/collision_mask = 0
 sources/0 = SubResource("TileSetAtlasSource_y5lbg")
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_73e5t"]
+radius = 6.0
+
 [node name="World" type="Node2D"]
 y_sort_enabled = true
 
@@ -241,3 +246,17 @@ position = Vector2(149, 275)
 
 [node name="Rock" parent="." instance=ExtResource("3_jwu2t")]
 position = Vector2(447, 261)
+
+[node name="CollectableStone" type="Area2D" parent="."]
+position = Vector2(350, 280)
+script = ExtResource("4_xaukq")
+
+[node name="Sprite2D" type="Sprite2D" parent="CollectableStone"]
+scale = Vector2(0.015, 0.015)
+texture = ExtResource("4_w8hhx")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CollectableStone"]
+shape = SubResource("CircleShape2D_73e5t")
+
+[connection signal="body_entered" from="CollectableStone" to="CollectableStone" method="_on_body_entered"]
+[connection signal="body_exited" from="CollectableStone" to="CollectableStone" method="_on_body_exited"]

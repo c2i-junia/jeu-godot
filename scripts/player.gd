@@ -21,10 +21,10 @@ func _physics_process(delta):
 	if Input.is_action_just_pressed("e"):
 		if rock_equiped:
 			rock_equiped = false
-			SPEED = 400.0
+			SPEED = 200.0
 		else:
 			rock_equiped = true
-			SPEED = 100.0 
+			SPEED = 150.0
 
 	var mouse_pos = get_global_mouse_position()
 	$Marker2D.look_at(mouse_pos)

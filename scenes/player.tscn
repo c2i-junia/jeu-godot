@@ -9,7 +9,16 @@ radius = 4.0
 height = 20.0
 
 [node name="Player" type="CharacterBody2D"]
+motion_mode = 1
 script = ExtResource("1_lrb3b")
+
+[node name="Player" type="Label" parent="."]
+offset_left = -6.0
+offset_top = -37.0
+offset_right = 5.0
+offset_bottom = -11.0
+theme_override_font_sizes/font_size = 18
+text = "1"
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(0, 7.10543e-15)
@@ -20,3 +29,5 @@ texture = SubResource("PlaceholderTexture2D_bmo1c")
 position = Vector2(0, 11)
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_issrm")
+
+[node name="Marker2D" type="Marker2D" parent="."]

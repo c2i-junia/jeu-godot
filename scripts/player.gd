@@ -12,6 +12,7 @@ var player_id: int		# Contient l'id du joueur
 var input			# "Input class" instance 
 var rock_equiped = false
 var cooldown = true
+var player_state_anim # Variable pour savoir quelle animation jouer
 
 # TEXTURES
 var rock = preload("res://scenes/pierre.tscn")
@@ -41,13 +42,21 @@ func _process(_delta):
 	# On stocke la direction du joueur dans un Vector2
 	var direction: Vector2 = input.get_vector("move_left", "move_right", "move_up", "move_down")
 	
+	# Conditions pour déterminer l'état du joueur pour l'animer
+	if direction.x == 0 and direction.y == 0:
+		player_state_anim = "idle"
+	elif direction.x != 0 or direction.y != 0:
+		player_state_anim = "moving"
+	
 	# On normalise la vitesse
 	velocity = direction.normalized() * SPEED
 	
-	# On actualise la position + gestions des collisions
+	# On actualise la position + gestion des collisions
 	move_and_slide()
+	# On joue les différentes animations
+	play_animation(direction)
 	
-	# Gestion de l'evenement "equiper_pierre"
+	# Gestion de l'événement "equiper_pierre"
 	if input.is_action_just_pressed("equiper_pierre"):
 		if rock_equiped:
 			rock_equiped = false
@@ -80,8 +89,20 @@ func _process(_delta):
 		# Ajout d'un compteur pour ne pas relancer instananement 
 		await get_tree().create_timer(0.6).timeout
 		cooldown = true
-		
 
+# Fonction pour animer le joueur
+func play_animation(dir):
+	if player_state_anim == "idle":
+		$AnimatedSprite2D.play("idle_s")
+	if player_state_anim == "moving":
+		if dir.y == -1:
+			$AnimatedSprite2D.play("walk_n")
+		if dir.x == 1:
+			$AnimatedSprite2D.play("walk_e")
+		if dir.y == 1:
+			$AnimatedSprite2D.play("walk_s")
+		if dir.x == -1:
+			$AnimatedSprite2D.play("walk_w")
 
 
 

@@ -56,21 +56,27 @@ func _process(_delta):
 	# On joue les différentes animations
 	play_animation(direction)
 	
+	# Deplacement du marker2d
+	var device = get_node("../PlayerManager").get_player_device(player_id)
+	if device == -1:
+		#var mouse_pos = get_global_mouse_position()
+		#$Marker2D.look_at(mouse_pos)
+		$Marker2D.global_position = get_global_mouse_position()
+	
+	elif device == 0 or device == 1:
+		var joy_x = input.get_axis("look_left", "look_right")
+		var joy_y = input.get_axis("look_up", "look_down")
+		var joy_vec = Vector2(joy_x, joy_y)
+		print(joy_vec)
+		
+		if joy_vec.length() > 0:
+			#var joy_target = $Marker2D.global_position + joy_vec.normalized() * 500
+			#$Marker2D.look_at(joy_target)
+			$Marker2D.position = joy_vec.normalized() * 100
+	
+	
 	# Gestion de l'evenement "lancer objet"
 	if input.is_action_just_pressed("lancer_pierre") and cooldown and rock_stocked > 0:
-		# Choix de la direction en fonction du périphérique
-		var device = get_node("../PlayerManager").get_player_device(player_id)
-		if device == -1:
-			var mouse_pos = get_global_mouse_position()
-			$Marker2D.look_at(mouse_pos)
-		elif device == 0 or device == 1:
-			var joy_x = input.get_axis("move_left", "move_right")
-			var joy_y = input.get_axis("move_up", "move_down")
-			var joy_vec = Vector2(joy_x, joy_y)
-			if joy_vec.length() > 0:
-				var joy_target = $Marker2D.global_position + joy_vec.normalized() * 500
-				$Marker2D.look_at(joy_target)
-		
 		# Lancer de la pierre
 		cooldown = false
 		var rock_instance = rock.instantiate()

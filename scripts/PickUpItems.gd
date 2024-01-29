@@ -4,8 +4,10 @@ var player_instance
 var isInRange = false
 
 func _physics_process(_delta):
-	if isInRange == true and Input.is_action_just_pressed("ramasser_pierre"):
-		player_instance.rock_equiped = true
+	if isInRange == true and Input.is_action_just_pressed("ramasser_pierre") and player_instance.rock_stocked == 0:
+		#player_instance.rock_equiped = true
+		player_instance.rock_stocked = 1
+		player_instance.SPEED = 150.0
 		isInRange = false
 		queue_free()
 

@@ -10,8 +10,8 @@ var DEADZONE: float = 0.2
 # VARIABLES 
 var player_id: int		# Contient l'id du joueur
 var input			# "Input class" instance 
-var rock_equiped = false
 var cooldown = true
+var rock_stocked = 0
 var player_state_anim # Variable pour savoir quelle animation jouer
 
 # TEXTURES
@@ -56,17 +56,8 @@ func _process(_delta):
 	# On joue les différentes animations
 	play_animation(direction)
 	
-	# Gestion de l'événement "equiper_pierre"
-	if input.is_action_just_pressed("equiper_pierre"):
-		if rock_equiped:
-			rock_equiped = false
-			SPEED = 200.0
-		else:
-			rock_equiped = true
-			SPEED = 150.0
-	
 	# Gestion de l'evenement "lancer objet"
-	if input.is_action_just_pressed("lancer_pierre") and cooldown and rock_equiped:
+	if input.is_action_just_pressed("lancer_pierre") and cooldown and rock_stocked > 0:
 		# Choix de la direction en fonction du périphérique
 		var device = get_node("../PlayerManager").get_player_device(player_id)
 		if device == -1:
@@ -86,9 +77,14 @@ func _process(_delta):
 		rock_instance.rotation = $Marker2D.rotation
 		rock_instance.global_position = $Marker2D.global_position
 		add_child(rock_instance)
+		rock_stocked -= 1
 		# Ajout d'un compteur pour ne pas relancer instananement 
 		await get_tree().create_timer(0.6).timeout
 		cooldown = true
+		
+		
+	if rock_stocked == 0:
+		SPEED = 200.0
 
 # Fonction pour animer le joueur
 func play_animation(dir):

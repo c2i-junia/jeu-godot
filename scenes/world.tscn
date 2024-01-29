@@ -248,7 +248,7 @@ layer_0/tile_data = PackedInt32Array(65537, 65536, 1, 131073, 65536, 1, 196609, 
 position = Vector2(447, 261)
 
 [node name="CollectableStone" type="Area2D" parent="."]
-position = Vector2(350, 280)
+position = Vector2(699, 511)
 script = ExtResource("4_xaukq")
 
 [node name="Sprite2D" type="Sprite2D" parent="CollectableStone"]
@@ -258,5 +258,33 @@ texture = ExtResource("4_w8hhx")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CollectableStone"]
 shape = SubResource("CircleShape2D_73e5t")
 
+[node name="CollectableStone2" type="Area2D" parent="."]
+position = Vector2(861, 200)
+script = ExtResource("4_xaukq")
+
+[node name="Sprite2D" type="Sprite2D" parent="CollectableStone2"]
+position = Vector2(5.96046e-08, 0)
+scale = Vector2(0.015, 0.015)
+texture = ExtResource("4_w8hhx")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CollectableStone2"]
+shape = SubResource("CircleShape2D_73e5t")
+
+[node name="CollectableStone3" type="Area2D" parent="."]
+position = Vector2(185, 445)
+script = ExtResource("4_xaukq")
+
+[node name="Sprite2D" type="Sprite2D" parent="CollectableStone3"]
+position = Vector2(5.96046e-08, -1.15037e-05)
+scale = Vector2(0.015, 0.015)
+texture = ExtResource("4_w8hhx")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CollectableStone3"]
+shape = SubResource("CircleShape2D_73e5t")
+
 [connection signal="body_entered" from="CollectableStone" to="CollectableStone" method="_on_body_entered"]
 [connection signal="body_exited" from="CollectableStone" to="CollectableStone" method="_on_body_exited"]
+[connection signal="body_entered" from="CollectableStone2" to="CollectableStone2" method="_on_body_entered"]
+[connection signal="body_exited" from="CollectableStone2" to="CollectableStone2" method="_on_body_exited"]
+[connection signal="body_entered" from="CollectableStone3" to="CollectableStone3" method="_on_body_entered"]
+[connection signal="body_exited" from="CollectableStone3" to="CollectableStone3" method="_on_body_exited"]

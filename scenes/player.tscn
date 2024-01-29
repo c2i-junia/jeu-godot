@@ -1,7 +1,8 @@
-[gd_scene load_steps=55 format=3 uid="uid://j7atxpk7qhc4"]
+[gd_scene load_steps=56 format=3 uid="uid://j7atxpk7qhc4"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_lrb3b"]
 [ext_resource type="Texture2D" uid="uid://dt8qb0jlds3wv" path="res://assets/Knight 16x16 NoWeps.png" id="2_o6rei"]
+[ext_resource type="Texture2D" uid="uid://da4yj5g0gt1f7" path="res://assets/default_reticles.png" id="3_egkbb"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_v0vnc"]
 atlas = ExtResource("2_o6rei")
@@ -400,6 +401,7 @@ motion_mode = 1
 script = ExtResource("1_lrb3b")
 
 [node name="Player" type="Label" parent="."]
+texture_filter = 1
 offset_left = -6.0
 offset_top = -37.0
 offset_right = 5.0
@@ -423,8 +425,6 @@ shape = SubResource("CapsuleShape2D_issrm")
 [node name="Marker2D" type="Marker2D" parent="."]
 position = Vector2(57, -1)
 
-[node name="ColorRect" type="ColorRect" parent="Marker2D"]
-offset_left = -3.0
-offset_top = -3.0
-offset_right = 3.0
-offset_bottom = 3.0
+[node name="Sprite2D" type="Sprite2D" parent="Marker2D"]
+texture_filter = 1
+texture = ExtResource("3_egkbb")

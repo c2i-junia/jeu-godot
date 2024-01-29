@@ -67,7 +67,7 @@ func _process(_delta):
 		var joy_x = input.get_axis("look_left", "look_right")
 		var joy_y = input.get_axis("look_up", "look_down")
 		var joy_vec = Vector2(joy_x, joy_y)
-		
+
 		if joy_vec.length() > 0:
 			#var joy_target = $Marker2D.global_position + joy_vec.normalized() * 500
 			#$Marker2D.look_at(joy_target)

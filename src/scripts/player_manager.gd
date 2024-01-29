@@ -37,7 +37,7 @@ func get_player_count():
 func get_player_indexes():
 	return player_data.keys()
 
-func get_player_device(player: int) -> int:
+func get_player_device(player: int):
 	return get_player_data(player, "device")
 
 # get player data.

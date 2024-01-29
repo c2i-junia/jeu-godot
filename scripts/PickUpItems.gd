@@ -12,6 +12,7 @@ func _physics_process(_delta):
 		queue_free()
 
 func _on_body_entered(body):
+	print(body)
 	if is_instance_valid(body) and body is CharacterBody2D:
 		player_instance = body
 		isInRange = true

@@ -67,7 +67,6 @@ func _process(_delta):
 		var joy_x = input.get_axis("look_left", "look_right")
 		var joy_y = input.get_axis("look_up", "look_down")
 		var joy_vec = Vector2(joy_x, joy_y)
-		print(joy_vec)
 		
 		if joy_vec.length() > 0:
 			#var joy_target = $Marker2D.global_position + joy_vec.normalized() * 500
@@ -80,17 +79,28 @@ func _process(_delta):
 		# Lancer de la pierre
 		cooldown = false
 		var rock_instance = rock.instantiate()
-		rock_instance.rotation = $Marker2D.rotation
-		rock_instance.global_position = $Marker2D.global_position
+		# Calcul de la direction 
+		var direction2 = $Marker2D.global_position - position 
+		#print("$direction2 : " + str(direction2))
+		direction2 = direction2.normalized()
+		rock_instance.direction = direction2
+		# var angle = atan2(direction2.x, direction2.y)
+		#print()
+		#print("$direction2 : " + str(direction2))
+		#print("rock_instance.direction : " + str(rock_instance.direction))
+		
+		# rock_instance.rotation = angle
+		rock_instance.global_position = position
 		add_child(rock_instance)
 		rock_stocked -= 1
 		# Ajout d'un compteur pour ne pas relancer instananement 
 		await get_tree().create_timer(0.6).timeout
 		cooldown = true
-		
-		
+
+
 	if rock_stocked == 0:
 		SPEED = 200.0
+
 
 # Fonction pour animer le joueur
 func play_animation(dir):

@@ -95,7 +95,7 @@ func _process(_delta):
 # Fonction pour animer le joueur
 func play_animation(dir):
 	if player_state_anim == "idle":
-		$AnimatedSprite2D.play("idle_s")
+		$AnimatedSprite2D.play("idle")
 	if player_state_anim == "moving":
 		if dir.y == -1:
 			$AnimatedSprite2D.play("walk_n")

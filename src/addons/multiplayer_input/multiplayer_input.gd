@@ -129,6 +129,9 @@ func get_axis(device: int, negative_action: StringName, positive_action: StringN
 		negative_action = get_action_name(device, negative_action)
 		positive_action = get_action_name(device, positive_action)
 	return Input.get_axis(negative_action, positive_action)
+	
+func get_joy_axis(device: int, axis: JoyAxis) -> float:
+		return Input.get_joy_axis(device, axis)
 
 ## This is equivalent to Input.get_vector except it will only check the relevant device.
 func get_vector(device: int, negative_x: StringName, positive_x: StringName, negative_y: StringName, positive_y: StringName, deadzone: float = -1.0) -> Vector2:

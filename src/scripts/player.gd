@@ -94,10 +94,15 @@ func actualiser_position_viseur():
 	if device == -1:
 		$Viseur.global_position = get_global_mouse_position()
 	elif device == 0 or device == 1:
-		var joy_x = input.get_axis("look_left", "look_right")
-		var joy_y = input.get_axis("look_up", "look_down")
+		#var joy_x = input.get_axis("look_left", "look_right")
+		#var joy_y = input.get_axis("look_up", "look_down")
+		#var joy_vec = Vector2(joy_x, joy_y)
+		var joy_x = input.get_joy_axis(2) # Axe X du joystick gauche
+		var joy_y = input.get_joy_axis(3) # Axe Y du joystick gauche
 		var joy_vec = Vector2(joy_x, joy_y)
-		$Viseur.position = joy_vec.normalized() * 100
+		print(joy_vec)
+		$Viseur.position = joy_vec * 100
+		#$Viseur.position = (joy_vec - Vector2(0.5, 0.5)) * 100
 
 
 # Fonction pour animer le joueur
@@ -120,7 +125,6 @@ func play_animation(dir):
 			$AnimatedSprite2D.play("walk_n")
 		elif dir.y > 0:
 			$AnimatedSprite2D.play("walk_s")
-
 
 
 func _on_area_2d_area_entered(area):

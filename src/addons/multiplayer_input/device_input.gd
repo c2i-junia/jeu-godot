@@ -90,6 +90,10 @@ func get_axis(negative_action: StringName, positive_action: StringName) -> float
 	if !is_connected: return 0.0
 	return MultiplayerInput.get_axis(device, negative_action, positive_action)
 
+func get_joy_axis(axis: JoyAxis) -> float:
+	if !is_connected: return 0.0
+	return MultiplayerInput.get_joy_axis(device, axis)
+
 ## This is equivalent to Input.get_vector except it will only check the relevant device.
 func get_vector(negative_x: StringName, positive_x: StringName, negative_y: StringName, positive_y: StringName, deadzone: float = -1.0) -> Vector2:
 	if !is_connected: return Vector2.ZERO

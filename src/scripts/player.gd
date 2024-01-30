@@ -11,7 +11,7 @@ var DEADZONE: float = 0.2
 var player_id: int		# Contient l'id du joueur
 var input			# "Input class" instance 
 var cooldown = true
-var rock_stocked = 0
+var rock_stocked = 22
 var player_state_anim # Variable pour savoir quelle animation jouer
 var nom_pierre_lancee
 var index = 0
@@ -20,19 +20,15 @@ var index = 0
 var rock = preload("res://scenes/pierre.tscn")
 var collectableStone = preload("res://scenes/collectable_stone.tscn")
 
-
 func init(player_num: int, device: int):
 	player_id = player_num
-	
 	# in my project, I got the device integer by accessing the singleton autoload PlayerManager
 	# but for simplicity, it's not an autoload in this demo.
 	# but I recommend making it a singleton so you can access the player data from anywhere.
 	# that would look like the following line, instead of the device function parameter above.
 	# var device = PlayerManager.get_player_device(player_id)
 	input = DeviceInput.new(device)
-	
 	$Id.text = "%s" % player_num
-
 
 func _process(_delta):
 	# On stocke la direction du joueur dans un Vector2
@@ -41,25 +37,19 @@ func _process(_delta):
 	velocity = player_direction.normalized() * SPEED
 	# On actualise la position + gestion des collisions
 	move_and_slide()
-	
 	# On joue les différentes animations
 	play_animation(player_direction)
-	
 	# Actualiser la position du viseur
 	actualiser_position_viseur()
-	
 	# Reactualiser vitesse joueur si la pierre n'est plus dans l'inventaire
 	if rock_stocked == 0:
 		SPEED = 200.0
-	
-	
 	# ----- GESTION DES EVENEMENTS -----
 	# let the player leave by pressing the "join" button
 	if input.is_action_just_pressed("join-leave"):
 		# an alternative to this is just call PlayerManager.leave(player_id)
 		# but that only works if you set up the PlayerManager singleton
 		leave.emit(player_id)
-
 	# Gestion de l'evenement "lancer objet"
 	if input.is_action_just_pressed("lancer_pierre") and cooldown and rock_stocked > 0:
 		# Lancer de la pierre
@@ -69,7 +59,6 @@ func _process(_delta):
 		var direction2 = $Viseur.global_position - position 
 		direction2 = direction2.normalized()
 		rock_instance.direction = direction2
-		
 		# rock_instance.rotation = angle
 		rock_instance.global_position = position
 		rock_instance.name = "Pierre" + str(index)
@@ -80,7 +69,6 @@ func _process(_delta):
 		# Ajout d'un compteur pour ne pas relancer instananement 
 		await get_tree().create_timer(0.6).timeout
 		cooldown = true
-
 
 # ------------ FONCTIONS ------------$Area2D
 
@@ -99,7 +87,6 @@ func actualiser_position_viseur():
 		$Viseur.position = joy_vec * 70
 		#$Viseur.position = (joy_vec - Vector2(0.5, 0.5)) * 100
 
-
 # Fonction pour animer le joueur
 func play_animation(dir):
 	# Conditions pour déterminer l'état du joueur pour l'animer
@@ -107,7 +94,6 @@ func play_animation(dir):
 		player_state_anim = "idle"
 	elif dir.x != 0 or dir.y != 0:
 		player_state_anim = "moving"
-	
 	# Animer joueur
 	if player_state_anim == "idle":
 		$AnimatedSprite2D.play("idle")
@@ -121,7 +107,6 @@ func play_animation(dir):
 		elif dir.y > 0:
 			$AnimatedSprite2D.play("walk_s")
 
-
 func _on_area_2d_area_entered(area):
 	if area.name != nom_pierre_lancee:
 		if "Pierre" in area.name:
@@ -129,4 +114,4 @@ func _on_area_2d_area_entered(area):
 			collectableStone_instance.global_position = position
 			get_parent().add_child(collectableStone_instance)
 			area.queue_free()
-			queue_free()
+			$AnimatedSprite2D.play("death")

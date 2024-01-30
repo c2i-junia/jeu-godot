@@ -15,7 +15,7 @@ func _on_visible_on_screen_enabler_2d_screen_exited():
 	queue_free()
 
 func _on_body_entered(body):
-	if body.name == "bordDeMap" or body.name == "Rock":
+	if body.name == "bordDeMap" or body.name == "Rock" or body.name == "bordDEau":
 		var collectableStone_instance = collectableStone.instantiate()
 		collectableStone_instance.global_position = position
 		get_parent().add_child(collectableStone_instance)

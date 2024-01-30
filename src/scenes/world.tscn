@@ -260,16 +260,17 @@ position = Vector2(688, 195)
 [node name="bordDeMap" type="StaticBody2D" parent="."]
 
 [node name="Largeur1" type="CollisionShape2D" parent="bordDeMap"]
+position = Vector2(2, 0)
 shape = SubResource("SegmentShape2D_nfke4")
 
 [node name="Largeur2" type="CollisionShape2D" parent="bordDeMap"]
-position = Vector2(1152, 0)
+position = Vector2(1150, 0)
 shape = SubResource("SegmentShape2D_nfke4")
 
 [node name="Longueur1" type="CollisionShape2D" parent="bordDeMap"]
-position = Vector2(0, 20)
+position = Vector2(0, 17)
 shape = SubResource("SegmentShape2D_p5588")
 
 [node name="Longueur2" type="CollisionShape2D" parent="bordDeMap"]
-position = Vector2(0, 648)
+position = Vector2(0, 646)
 shape = SubResource("SegmentShape2D_p5588")

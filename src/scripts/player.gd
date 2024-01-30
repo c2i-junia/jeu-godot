@@ -18,6 +18,7 @@ var index = 0
 
 # TEXTURES
 var rock = preload("res://scenes/pierre.tscn")
+var collectableStone = preload("res://scenes/collectable_stone.tscn")
 
 
 func init(player_num: int, device: int):
@@ -74,7 +75,7 @@ func _process(_delta):
 		rock_instance.name = "Pierre" + str(index)
 		index += 1 
 		nom_pierre_lancee = rock_instance.name
-		add_child(rock_instance)
+		get_parent().add_child(rock_instance)
 		rock_stocked -= 1
 		# Ajout d'un compteur pour ne pas relancer instananement 
 		await get_tree().create_timer(0.6).timeout
@@ -82,12 +83,6 @@ func _process(_delta):
 
 
 # ------------ FONCTIONS ------------$Area2D
-func _on_area_2d_body_entered(body):
-	print(body)
-	if body.name != nom_pierre_lancee:
-		if body.name == "Pierre":
-			queue_free()
-
 
 func actualiser_position_viseur():
 	var device = get_node("../PlayerManager").get_player_device(player_id)
@@ -128,8 +123,10 @@ func play_animation(dir):
 
 
 func _on_area_2d_area_entered(area):
-	print(area)
 	if area.name != nom_pierre_lancee:
 		if "Pierre" in area.name:
+			var collectableStone_instance = collectableStone.instantiate()
+			collectableStone_instance.global_position = position
+			get_parent().add_child(collectableStone_instance)
 			area.queue_free()
 			queue_free()

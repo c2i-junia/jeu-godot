@@ -96,7 +96,7 @@ func actualiser_position_viseur():
 		var joy_y = input.get_joy_axis(3) # Axe Y du joystick gauche
 		var joy_vec = Vector2(joy_x, joy_y)
 		print(joy_vec)
-		$Viseur.position = joy_vec * 100
+		$Viseur.position = joy_vec * 70
 		#$Viseur.position = (joy_vec - Vector2(0.5, 0.5)) * 100
 
 

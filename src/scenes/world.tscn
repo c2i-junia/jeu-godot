@@ -23643,3 +23643,15 @@ shape = SubResource("RectangleShape2D_fp7va")
 [node name="eauShape10" type="CollisionShape2D" parent="bordDEau"]
 position = Vector2(106, 342)
 shape = SubResource("RectangleShape2D_3s6p6")
+
+[node name="Spawn1" type="Marker2D" parent="."]
+position = Vector2(104, 531)
+
+[node name="Spawn2" type="Marker2D" parent="."]
+position = Vector2(1057, 113)
+
+[node name="Spawn3" type="Marker2D" parent="."]
+position = Vector2(549, 341)
+
+[node name="Spawn4" type="Marker2D" parent="."]
+position = Vector2(1045, 543)

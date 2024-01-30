@@ -254,7 +254,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_ptkyc")
 }],
-"loop": true,
+"loop": false,
 "name": &"death",
 "speed": 15.0
 }, {
@@ -418,8 +418,10 @@ texture_filter = 1
 position = Vector2(0, 7.10543e-15)
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_v45rr")
-animation = &"idle"
+animation = &"death"
 autoplay = "idle"
+frame = 12
+frame_progress = 1.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 11)
@@ -440,5 +442,6 @@ collision_layer = 2
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("CapsuleShape2D_fn4by")
 
+[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
 [connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

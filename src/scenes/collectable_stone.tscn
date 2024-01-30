@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://dmpisoh04ylox"]
+
+[ext_resource type="Script" path="res://scripts/collectable_stone.gd" id="1_v4pgx"]
+[ext_resource type="Texture2D" uid="uid://bj6w14m6dps6n" path="res://assets/rock.svg" id="2_jt5jm"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_73e5t"]
+radius = 6.0
+
+[node name="CollectableStone" type="Area2D"]
+position = Vector2(699, 511)
+script = ExtResource("1_v4pgx")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.015, 0.015)
+texture = ExtResource("2_jt5jm")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_73e5t")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]

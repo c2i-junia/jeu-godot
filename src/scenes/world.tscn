@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://v3bqhdbf3e71"]
+[gd_scene load_steps=12 format=3 uid="uid://v3bqhdbf3e71"]
 
 [ext_resource type="Script" path="res://scripts/world.gd" id="1_kex6r"]
 [ext_resource type="Texture2D" uid="uid://2t8ok1wr48qn" path="res://assets/grass-tileset.png" id="1_tq32y"]
@@ -231,6 +231,12 @@ sources/0 = SubResource("TileSetAtlasSource_y5lbg")
 [sub_resource type="CircleShape2D" id="CircleShape2D_73e5t"]
 radius = 6.0
 
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_nfke4"]
+b = Vector2(0, 648)
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_p5588"]
+b = Vector2(1152, 0)
+
 [node name="World" type="Node2D"]
 y_sort_enabled = true
 script = ExtResource("1_kex6r")
@@ -281,6 +287,23 @@ texture = ExtResource("4_w8hhx")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CollectableStone3"]
 shape = SubResource("CircleShape2D_73e5t")
+
+[node name="bordDeMap" type="StaticBody2D" parent="."]
+
+[node name="Largeur1" type="CollisionShape2D" parent="bordDeMap"]
+shape = SubResource("SegmentShape2D_nfke4")
+
+[node name="Largeur2" type="CollisionShape2D" parent="bordDeMap"]
+position = Vector2(1152, 0)
+shape = SubResource("SegmentShape2D_nfke4")
+
+[node name="Longueur1" type="CollisionShape2D" parent="bordDeMap"]
+position = Vector2(0, 20)
+shape = SubResource("SegmentShape2D_p5588")
+
+[node name="Longueur2" type="CollisionShape2D" parent="bordDeMap"]
+position = Vector2(0, 648)
+shape = SubResource("SegmentShape2D_p5588")
 
 [connection signal="body_entered" from="CollectableStone" to="CollectableStone" method="_on_body_entered"]
 [connection signal="body_exited" from="CollectableStone" to="CollectableStone" method="_on_body_exited"]

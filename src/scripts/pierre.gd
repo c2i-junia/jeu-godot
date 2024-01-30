@@ -1,4 +1,4 @@
-extends Area2D
+extends CharacterBody2D
 
 var speed = 350 # Vitesse de la fleche 
 var direction

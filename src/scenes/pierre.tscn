@@ -7,7 +7,7 @@
 radius = 8.0
 height = 18.0
 
-[node name="Pierre" type="Area2D"]
+[node name="Pierre" type="CharacterBody2D"]
 script = ExtResource("1_44dp1")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

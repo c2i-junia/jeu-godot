@@ -13,6 +13,7 @@ var input			# "Input class" instance
 var cooldown = true
 var rock_stocked = 0
 var player_state_anim # Variable pour savoir quelle animation jouer
+var nom_pierre_lancee
 
 # TEXTURES
 var rock = preload("res://scenes/pierre.tscn")
@@ -69,6 +70,7 @@ func _process(_delta):
 		
 		# rock_instance.rotation = angle
 		rock_instance.global_position = position
+		nom_pierre_lancee = rock_instance.name
 		add_child(rock_instance)
 		rock_stocked -= 1
 		# Ajout d'un compteur pour ne pas relancer instananement 
@@ -76,9 +78,14 @@ func _process(_delta):
 		cooldown = true
 
 
-
-
 # ------------ FONCTIONS ------------
+func _on_area_2d_body_entered(body):
+	print(body.name)
+	if body.name != nom_pierre_lancee:
+		if body.name == "Pierre":
+			queue_free()
+
+
 func actualiser_position_viseur():
 	var device = get_node("../PlayerManager").get_player_device(player_id)
 	if device == -1:

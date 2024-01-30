@@ -7,7 +7,7 @@
 radius = 8.0
 height = 18.0
 
-[node name="Pierre" type="CharacterBody2D"]
+[node name="Pierre" type="Area2D"]
 script = ExtResource("1_44dp1")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -23,4 +23,6 @@ shape = SubResource("CapsuleShape2D_tci1x")
 position = Vector2(-6.55651e-07, 3.57628e-07)
 scale = Vector2(0.9, 0.8)
 
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="screen_exited" from="VisibleOnScreenEnabler2D" to="." method="_on_visible_on_screen_enabler_2d_screen_exited"]

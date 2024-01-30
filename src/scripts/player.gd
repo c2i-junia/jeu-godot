@@ -14,6 +14,7 @@ var cooldown = true
 var rock_stocked = 0
 var player_state_anim # Variable pour savoir quelle animation jouer
 var nom_pierre_lancee
+var index = 0
 
 # TEXTURES
 var rock = preload("res://scenes/pierre.tscn")
@@ -70,6 +71,8 @@ func _process(_delta):
 		
 		# rock_instance.rotation = angle
 		rock_instance.global_position = position
+		rock_instance.name = "Pierre" + str(index)
+		index += 1 
 		nom_pierre_lancee = rock_instance.name
 		add_child(rock_instance)
 		rock_stocked -= 1
@@ -78,8 +81,9 @@ func _process(_delta):
 		cooldown = true
 
 
-# ------------ FONCTIONS ------------
+# ------------ FONCTIONS ------------$Area2D
 func _on_area_2d_body_entered(body):
+	print(body)
 	if body.name != nom_pierre_lancee:
 		if body.name == "Pierre":
 			queue_free()
@@ -116,3 +120,12 @@ func play_animation(dir):
 			$AnimatedSprite2D.play("walk_n")
 		elif dir.y > 0:
 			$AnimatedSprite2D.play("walk_s")
+
+
+
+func _on_area_2d_area_entered(area):
+	print(area)
+	if area.name != nom_pierre_lancee:
+		if "Pierre" in area.name:
+			area.queue_free()
+			queue_free()

@@ -114,4 +114,4 @@ func _on_area_2d_area_entered(area):
 			collectableStone_instance.global_position = position
 			get_parent().add_child(collectableStone_instance)
 			area.queue_free()
-			$AnimatedSprite2D.play("death")
+			queue_free()

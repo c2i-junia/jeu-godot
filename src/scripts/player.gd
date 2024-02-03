@@ -13,6 +13,7 @@ var input			# "Input class" instance
 var cooldown = true
 var rock_stocked = 0
 var player_state_anim # Variable pour savoir quelle animation jouer
+var isFaster = false
 
 # TEXTURES
 var rock = preload("res://scenes/pierre.tscn")
@@ -45,11 +46,18 @@ func _process(_delta):
 	# Actualiser la position du viseur
 	actualiser_position_viseur()
 	
+	if isFaster == true :
+		$Timer.autostart = true
+		$Timer.one_shot = true
+		$Timer.wait_time = 3
+		$Timer.connect("timeout",self,"restore_speed")
+		SPEED = 700.0
+		$Timer.start()
 	# Reactualiser vitesse joueur si la pierre n'est plus dans l'inventaire
-	if rock_stocked == 0:
+	if rock_stocked == 0 and isFaster == false:
 		SPEED = 200.0
-	
-	
+
+
 	# ----- GESTION DES EVENEMENTS -----
 	# let the player leave by pressing the "join" button
 	if input.is_action_just_pressed("join-leave"):
@@ -89,6 +97,8 @@ func actualiser_position_viseur():
 		var joy_vec = Vector2(joy_x, joy_y)
 		$Viseur.position = joy_vec.normalized() * 100
 
+func restore_speed():
+	SPEED = 200.0
 
 # Fonction pour animer le joueur
 func play_animation(dir):

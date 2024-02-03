@@ -429,3 +429,5 @@ position = Vector2(57, -1)
 texture_filter = 1
 scale = Vector2(2, 2)
 texture = ExtResource("3_egkbb")
+
+[node name="Timer" type="Timer" parent="."]

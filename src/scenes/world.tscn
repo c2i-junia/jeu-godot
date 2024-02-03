@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://v3bqhdbf3e71"]
+[gd_scene load_steps=13 format=3 uid="uid://v3bqhdbf3e71"]
 
 [ext_resource type="Script" path="res://scripts/world.gd" id="1_kex6r"]
 [ext_resource type="Texture2D" uid="uid://2t8ok1wr48qn" path="res://assets/grass-tileset.png" id="1_tq32y"]
@@ -6,6 +6,8 @@
 [ext_resource type="PackedScene" uid="uid://bqwhsrsfxwrl3" path="res://scenes/rock.tscn" id="3_jwu2t"]
 [ext_resource type="Texture2D" uid="uid://bj6w14m6dps6n" path="res://assets/rock.svg" id="4_w8hhx"]
 [ext_resource type="Script" path="res://scripts/PickUpItems.gd" id="4_xaukq"]
+[ext_resource type="Script" path="res://scenes/SpeedPotion.gd" id="7_ady6b"]
+[ext_resource type="Texture2D" uid="uid://dklbx2l7suk4n" path="res://assets/speedPotion.png" id="7_pi0uv"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_y5lbg"]
 texture = ExtResource("1_tq32y")
@@ -231,6 +233,10 @@ sources/0 = SubResource("TileSetAtlasSource_y5lbg")
 [sub_resource type="CircleShape2D" id="CircleShape2D_73e5t"]
 radius = 6.0
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_uuylt"]
+radius = 4.66667
+height = 17.3333
+
 [node name="World" type="Node2D"]
 y_sort_enabled = true
 script = ExtResource("1_kex6r")
@@ -282,9 +288,23 @@ texture = ExtResource("4_w8hhx")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CollectableStone3"]
 shape = SubResource("CircleShape2D_73e5t")
 
+[node name="SpeedPotion" type="Area2D" parent="."]
+position = Vector2(291, 330)
+script = ExtResource("7_ady6b")
+
+[node name="Sprite2D" type="Sprite2D" parent="SpeedPotion"]
+texture_filter = 1
+texture = ExtResource("7_pi0uv")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SpeedPotion"]
+position = Vector2(0, 0.666667)
+shape = SubResource("CapsuleShape2D_uuylt")
+
 [connection signal="body_entered" from="CollectableStone" to="CollectableStone" method="_on_body_entered"]
 [connection signal="body_exited" from="CollectableStone" to="CollectableStone" method="_on_body_exited"]
 [connection signal="body_entered" from="CollectableStone2" to="CollectableStone2" method="_on_body_entered"]
 [connection signal="body_exited" from="CollectableStone2" to="CollectableStone2" method="_on_body_exited"]
 [connection signal="body_entered" from="CollectableStone3" to="CollectableStone3" method="_on_body_entered"]
 [connection signal="body_exited" from="CollectableStone3" to="CollectableStone3" method="_on_body_exited"]
+[connection signal="body_entered" from="SpeedPotion" to="SpeedPotion" method="_on_body_entered"]
+[connection signal="body_exited" from="SpeedPotion" to="SpeedPotion" method="_on_body_exited"]

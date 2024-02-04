@@ -13,7 +13,9 @@ var input			# "Input class" instance
 var cooldown = true
 var rock_stocked = 0
 var player_state_anim # Variable pour savoir quelle animation jouer
-var isFaster = false
+var isFaster = false # Booléen pour savoir s'il faut rendre le joueur plus rapide
+var isTransparent = false
+var timer = Timer.new()
 
 # TEXTURES
 var rock = preload("res://scenes/pierre.tscn")
@@ -46,25 +48,31 @@ func _process(_delta):
 	# Actualiser la position du viseur
 	actualiser_position_viseur()
 	
+	# ----- GESTION DES EFFETS DU JOUEUR -----
+	# Gestion de la vitesse du joueur
 	if isFaster == true :
-		$Timer.autostart = true
-		$Timer.one_shot = true
-		$Timer.wait_time = 3
-		$Timer.connect("timeout",self,"restore_speed")
-		SPEED = 700.0
-		$Timer.start()
-	# Reactualiser vitesse joueur si la pierre n'est plus dans l'inventaire
+		SPEED = 400.0
+		await get_tree().create_timer(3.0).timeout
+		isFaster = false
+	# Actualiser la vitesse joueur si la pierre n'est plus dans l'inventaire
 	if rock_stocked == 0 and isFaster == false:
 		SPEED = 200.0
-
-
+	# Gestion de la collision et de l'opacité du joueur
+	if isTransparent == true:
+		get_node("CollisionShape2D").disabled = true
+		$AnimatedSprite2D.self_modulate.a = 0.5
+		await get_tree().create_timer(3.0).timeout
+		get_node("CollisionShape2D").disabled = false
+		$AnimatedSprite2D.self_modulate.a = 1
+		isTransparent = false
+	
 	# ----- GESTION DES EVENEMENTS -----
 	# let the player leave by pressing the "join" button
 	if input.is_action_just_pressed("join-leave"):
 		# an alternative to this is just call PlayerManager.leave(player_id)
 		# but that only works if you set up the PlayerManager singleton
 		leave.emit(player_id)
-
+	
 	# Gestion de l'evenement "lancer objet"
 	if input.is_action_just_pressed("lancer_pierre") and cooldown and rock_stocked > 0:
 		# Lancer de la pierre
@@ -96,9 +104,6 @@ func actualiser_position_viseur():
 		var joy_y = input.get_axis("look_up", "look_down")
 		var joy_vec = Vector2(joy_x, joy_y)
 		$Viseur.position = joy_vec.normalized() * 100
-
-func restore_speed():
-	SPEED = 200.0
 
 # Fonction pour animer le joueur
 func play_animation(dir):

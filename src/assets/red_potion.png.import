@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dklbx2l7suk4n"
-path="res://.godot/imported/speedPotion.png-ca22370efa0e45326d0fe684796e695e.ctex"
+uid="uid://dtoblofrdjp01"
+path="res://.godot/imported/red_potion.png-413631b980c8ca88126e414dfd226363.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/speedPotion.png"
-dest_files=["res://.godot/imported/speedPotion.png-ca22370efa0e45326d0fe684796e695e.ctex"]
+source_file="res://assets/red_potion.png"
+dest_files=["res://.godot/imported/red_potion.png-413631b980c8ca88126e414dfd226363.ctex"]
 
 [params]
 

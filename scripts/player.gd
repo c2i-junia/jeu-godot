@@ -51,20 +51,13 @@ func _process(_delta):
 	# ----- GESTION DES EFFETS DU JOUEUR -----
 	# Gestion de la vitesse du joueur
 	if isFaster == true :
-		SPEED = 400.0
-		await get_tree().create_timer(3.0).timeout
-		isFaster = false
+		change_speed()
 	# Actualiser la vitesse joueur si la pierre n'est plus dans l'inventaire
 	if rock_stocked == 0 and isFaster == false:
 		SPEED = 200.0
 	# Gestion de la collision et de l'opacité du joueur
 	if isTransparent == true:
-		get_node("CollisionShape2D").disabled = true
-		$AnimatedSprite2D.self_modulate.a = 0.5
-		await get_tree().create_timer(3.0).timeout
-		get_node("CollisionShape2D").disabled = false
-		$AnimatedSprite2D.self_modulate.a = 1
-		isTransparent = false
+		ghost_mode()
 	
 	# ----- GESTION DES EVENEMENTS -----
 	# let the player leave by pressing the "join" button
@@ -125,3 +118,17 @@ func play_animation(dir):
 			$AnimatedSprite2D.play("walk_n")
 		elif dir.y > 0:
 			$AnimatedSprite2D.play("walk_s")
+
+# Fonctions des effets des items sur le joueur
+func change_speed():
+	SPEED = 500.0
+	await get_tree().create_timer(3.0).timeout
+	isFaster = false
+
+func ghost_mode():
+	get_node("CollisionShape2D").disabled = true
+	$AnimatedSprite2D.self_modulate.a = 0.5
+	await get_tree().create_timer(3.0).timeout
+	get_node("CollisionShape2D").disabled = false
+	$AnimatedSprite2D.self_modulate.a = 1
+	isTransparent = false

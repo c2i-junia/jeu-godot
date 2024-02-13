@@ -1,7 +1,8 @@
 extends Area2D
 
-var speed = 350 # Vitesse de la fleche 
+var speed = 400 # Vitesse de la fleche 
 var direction
+var collectableStone = preload("res://scenes/collectable_stone.tscn")
 
 func _ready():
 	set_as_top_level(true) # La flèche sera vu par dessus nimporte quel objet
@@ -12,3 +13,11 @@ func _process(delta):
 	
 func _on_visible_on_screen_enabler_2d_screen_exited():
 	queue_free()
+
+func _on_body_entered(body):
+	print(body)
+	if body.name == "bordDeMap" or body.name == "Rock":
+		var collectableStone_instance = collectableStone.instantiate()
+		collectableStone_instance.global_position = position
+		get_parent().call_deferred("add_child", collectableStone_instance)
+		queue_free()

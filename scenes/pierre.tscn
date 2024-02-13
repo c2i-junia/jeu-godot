@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://d3pplqq6te1jr"]
 
 [ext_resource type="Script" path="res://scripts/pierre.gd" id="1_44dp1"]
-[ext_resource type="Texture2D" uid="uid://bj6w14m6dps6n" path="res://assets/rock.svg" id="2_tkq8c"]
+[ext_resource type="Texture2D" uid="uid://chp2qcw7nvgl" path="res://assets/pearl_01a.png" id="2_rr46o"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_tci1x"]
 radius = 8.0
@@ -11,16 +11,17 @@ height = 18.0
 script = ExtResource("1_44dp1")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(-1.19209e-07, 0)
-scale = Vector2(0.0211445, 0.0212175)
-texture = ExtResource("2_tkq8c")
+position = Vector2(-1.19209e-07, 1.78814e-07)
+scale = Vector2(0.375, 0.333333)
+texture = ExtResource("2_rr46o")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 rotation = -1.5708
 shape = SubResource("CapsuleShape2D_tci1x")
 
 [node name="VisibleOnScreenEnabler2D" type="VisibleOnScreenEnabler2D" parent="."]
-position = Vector2(-6.55651e-07, 3.57628e-07)
 scale = Vector2(0.9, 0.8)
 
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="screen_exited" from="VisibleOnScreenEnabler2D" to="." method="_on_visible_on_screen_enabler_2d_screen_exited"]

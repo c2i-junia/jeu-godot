@@ -52,16 +52,16 @@ func _process(_delta):
 		actualiser_position_viseur()
 	
 	# ----- GESTION DES EFFETS DU JOUEUR -----
-	# Gestion de la vitesse du joueur
+	# Rendre le joueur plus rapide
 	if isFaster == true :
 		change_speed()
 	# Actualiser la vitesse du joueur si la pierre n'est plus dans l'inventaire
 	if rock_stocked == 0 and isFaster == false:
 		SPEED = 200.0
-	
 	# Gestion de la collision et de l'opacité du joueur
 	if isTransparent == true:
 		ghost_mode()
+	# Augmenter la cadence de tir
 	if isEnraged == true:
 		rage_mode()
 	
@@ -92,7 +92,7 @@ func _process(_delta):
 		await get_tree().create_timer(0.6 + delay_cooldown).timeout
 		cooldown = true
 		
-	if input.is_action_just_pressed("lancer_pierre") and cooldown and axe_stocked > 0:
+	if input.is_action_just_pressed("lancer_pierre") and player_state == "alive" and cooldown and axe_stocked > 0:
 		# Lancer de la hache
 		cooldown = false
 		var axe_instance = axe.instantiate()
@@ -144,6 +144,22 @@ func play_animation(dir):
 		elif dir.y > 0:
 			$AnimatedSprite2D.play("walk_s")
 
+func _on_area_2d_area_entered(area):
+	if area.name != nom_pierre_lancee:
+		if "Pierre" in area.name:
+			var collectableStone_instance = collectableStone.instantiate()
+			collectableStone_instance.global_position = position
+			get_parent().call_deferred("add_child", collectableStone_instance)
+			area.queue_free()
+			player_state = "dead"
+			$Viseur.visible = false
+			$AnimatedSprite2D.play("death")
+
+func _on_animated_sprite_2d_animation_finished():
+	if $AnimatedSprite2D.animation == "death":
+		$AnimatedSprite2D.play("dead")
+
+# ------------ EFFETS DES POTIONS ------------
 # Fonctions des effets des items sur le joueur
 func change_speed():
 	SPEED = 500.0
@@ -163,20 +179,3 @@ func rage_mode():
 	await get_tree().create_timer(6.0).timeout
 	isEnraged = false
 	delay_cooldown = 0
-
-
-
-func _on_area_2d_area_entered(area):
-	if area.name != nom_pierre_lancee:
-		if "Pierre" in area.name:
-			var collectableStone_instance = collectableStone.instantiate()
-			collectableStone_instance.global_position = position
-			get_parent().call_deferred("add_child", collectableStone_instance)
-			area.queue_free()
-			player_state = "dead"
-			$Viseur.visible = false
-			$AnimatedSprite2D.play("death")
-
-func _on_animated_sprite_2d_animation_finished():
-	if $AnimatedSprite2D.animation == "death":
-		$AnimatedSprite2D.play("dead")

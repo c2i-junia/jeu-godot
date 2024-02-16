@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://bhjkoxf2tfqe6"]
+
+[ext_resource type="Script" path="res://scripts/RagePotion.gd" id="1_yb6wc"]
+[ext_resource type="Texture2D" uid="uid://dtoblofrdjp01" path="res://assets/red_potion.png" id="2_12vq5"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_e6527"]
+radius = 8.0
+height = 20.0
+
+[node name="RagePotion" type="Area2D"]
+position = Vector2(450, 453)
+script = ExtResource("1_yb6wc")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("2_12vq5")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 1)
+shape = SubResource("CapsuleShape2D_e6527")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]

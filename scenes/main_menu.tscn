@@ -1,0 +1,69 @@
+[gd_scene load_steps=4 format=3 uid="uid://bxmmidjxfax31"]
+
+[ext_resource type="Script" path="res://scripts/main_menu.gd" id="1_xftwc"]
+[ext_resource type="Texture2D" uid="uid://crii328tkwjvo" path="res://assets/titre_menu_fightisen.png" id="2_ctxtw"]
+[ext_resource type="Texture2D" uid="uid://c5lxpdamknxub" path="res://assets/background_image_menu.jpg" id="2_oad1d"]
+
+[node name="MainMenu" type="Node"]
+script = ExtResource("1_xftwc")
+
+[node name="BackgroundImage" type="TextureRect" parent="."]
+texture_filter = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -960.0
+offset_top = -344.0
+offset_right = 960.0
+offset_bottom = 736.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_oad1d")
+
+[node name="Title" type="TextureRect" parent="."]
+texture_filter = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -412.5
+offset_top = -294.0
+offset_right = 412.5
+offset_bottom = -92.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_ctxtw")
+
+[node name="PlayButton" type="Button" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -150.0
+offset_top = 1.0
+offset_right = 150.0
+offset_bottom = 76.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "PLAY"
+
+[node name="QuitButton" type="Button" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -150.0
+offset_top = 126.0
+offset_right = 150.0
+offset_bottom = 201.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "QUIT"
+
+[connection signal="pressed" from="PlayButton" to="." method="_on_play_button_pressed"]
+[connection signal="pressed" from="QuitButton" to="." method="_on_quit_button_pressed"]

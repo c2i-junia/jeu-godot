@@ -25,7 +25,7 @@ var player_state = "alive"
 
 # TEXTURES
 var rock = preload("res://scenes/pierre.tscn")
-var axe = preload("res://scenes/axe.tscn")
+var axe = preload("res://scenes/axe_weapon.tscn")
 var collectableStone = preload("res://scenes/collectable_stone.tscn")
 
 func init(player_num: int, device: int):
@@ -77,35 +77,54 @@ func _process(_delta):
 		# Lancer de la pierre
 		cooldown = false
 		var rock_instance = rock.instantiate()
-		# Calcul de la direction 
-		var direction2 = $Viseur.global_position - position 
+		# Calcul de la direction
+		var direction2 = $Viseur.global_position - position
 		direction2 = direction2.normalized()
 		rock_instance.direction = direction2
 		# rock_instance.rotation = angle
 		rock_instance.global_position = position
 		rock_instance.name = "Pierre" + str(index)
-		index += 1 
+		index += 1
 		nom_pierre_lancee = rock_instance.name
 		get_parent().add_child(rock_instance)
 		rock_stocked -= 1
-		# Ajout d'un compteur pour ne pas relancer instananement 
+		# Ajout d'un compteur pour ne pas relancer instananement
 		await get_tree().create_timer(0.6 + delay_cooldown).timeout
 		cooldown = true
-		
+	
 	if input.is_action_just_pressed("lancer_pierre") and player_state == "alive" and cooldown and axe_stocked > 0:
-		# Lancer de la hache
+		# Lancer de la pierre
 		cooldown = false
 		var axe_instance = axe.instantiate()
-		# Calcul de la direction 
-		var direction2 = $Viseur.global_position - position 
+		# Calcul de la direction
+		var direction2 = $Viseur.global_position - position
 		direction2 = direction2.normalized()
 		axe_instance.direction = direction2
+		# rock_instance.rotation = angle
 		axe_instance.global_position = position
-		add_child(axe_instance)
+		axe_instance.name = "Weapon" + str(index)
+		index += 1
+		nom_pierre_lancee = axe_instance.name
+		get_parent().add_child(axe_instance)
 		axe_stocked -= 1
-		# Ajout d'un compteur pour ne pas relancer instananement 
+		# Ajout d'un compteur pour ne pas relancer instananement
 		await get_tree().create_timer(0.6 + delay_cooldown).timeout
 		cooldown = true
+	
+	#if input.is_action_just_pressed("lancer_pierre") and player_state == "alive" and cooldown and axe_stocked > 0:
+		## Lancer de la hache
+		#cooldown = false
+		#var axe_instance = axe.instantiate()
+		## Calcul de la direction 
+		#var direction2 = $Viseur.global_position - position 
+		#direction2 = direction2.normalized()
+		#axe_instance.direction = direction2
+		#axe_instance.global_position = position
+		#get_parent().add_child(axe_instance)
+		#axe_stocked -= 1
+		## Ajout d'un compteur pour ne pas relancer instananement 
+		#await get_tree().create_timer(0.6 + delay_cooldown).timeout
+		#cooldown = true
 
 
 
@@ -146,7 +165,7 @@ func play_animation(dir):
 
 func _on_area_2d_area_entered(area):
 	if area.name != nom_pierre_lancee:
-		if "Pierre" in area.name:
+		if "Pierre" in area.name or "Weapon" in area.name:
 			var collectableStone_instance = collectableStone.instantiate()
 			collectableStone_instance.global_position = position
 			get_parent().call_deferred("add_child", collectableStone_instance)

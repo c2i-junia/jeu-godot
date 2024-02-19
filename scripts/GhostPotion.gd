@@ -5,7 +5,7 @@ var isInRange = false
 
 func _physics_process(_delta):
 	if isInRange == true and player_instance.input.is_action_just_pressed("ramasser_pierre"):
-		player_instance.isEnraged = true
+		player_instance.isTransparent = true
 		isInRange = false
 		queue_free()
 

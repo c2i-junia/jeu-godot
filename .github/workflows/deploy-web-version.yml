@@ -1,0 +1,61 @@
+name: deploy web version
+
+on:
+  push: 
+    branches: [ main ]
+
+permissions:
+  contents: write
+
+
+concurrency:
+  group: ci-${{github.actor}}-${{github.head_ref || github.run_number}}-${{github.ref}}-devbuilds
+  cancel-in-progress: true
+
+
+env:
+  GODOT_VERSION: 4.2.1
+  EXPORT_NAME: RGProjetA
+
+
+
+jobs:
+  export-web:
+    name: Web export
+    runs-on: ubuntu-latest
+    container:
+      image: docker://barichello/godot-ci:4.2.1
+
+    steps:
+      - name: Checkout 
+        uses: actions/checkout@v4
+        with:
+          submodules: true
+
+      - name: Setup
+        run: |
+          mkdir -v -p build/web ~/.local/share/godot/export_templates
+          mv /root/.local/share/godot/export_templates/${GODOT_VERSION}.stable ~/.local/share/godot/export_templates/${GODOT_VERSION}.stable
+
+      - name: Build
+        run: godot --headless -v --export-release "Web" ./build/web/index.html
+
+      - name: Install rsync
+        run: |
+          apt-get update && apt-get install -y rsync
+
+      # Workaround for SharedArrayBuffer support on GitHub Pages
+      # See: https://github.com/godotengine/godot-docs/issues/7084
+      - name: Enable SharedArrayBuffer for GitHub Pages
+        run: |
+          cd ./build/web
+          apt-get install -y curl
+          curl -fsSL https://github.com/gzuidhof/coi-serviceworker/raw/master/coi-serviceworker.js > coi-serviceworker.js
+          sed -i 's#\(		<script src="index.js"></script>\)#		<script src="coi-serviceworker.js"></script>\n\1#g' index.html
+
+      - name: Deploy
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          single-commit: true
+          folder: build/web # The folder the action should deploy.

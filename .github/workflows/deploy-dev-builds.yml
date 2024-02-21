@@ -1,7 +1,10 @@
-name: development builds
+name: deploy dev builds
 
 on:
-  push:
+  push: 
+
+permissions:
+  contents: write
 
 
 concurrency:
@@ -45,12 +48,12 @@ jobs:
           mv /root/.local/share/godot/export_templates/${GODOT_VERSION}.stable ~/.local/share/godot/export_templates/${GODOT_VERSION}.stable
 
       - name: Build
-        run: godot --headless -v --export-release "Windows Desktop 64-bit" ./build/windows-64bit/$EXPORT_NAME.exe
+        run: godot --headless -v --export-release "Windows Desktop 64-bit" ./build/windows-64bit/RGProjetA_dev_win64.exe 
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
-          name: windows-64bit
+          name: RGProjetA_dev_win64.exe
           path: ./build/windows-64bit/
           retention-days: 30
 
@@ -74,62 +77,15 @@ jobs:
 
       - name: Build
         run: |
-          godot --headless -v --export-release "Linux/X11 64-bit" ./build/linux-64bit/$EXPORT_NAME.x86_64
+          godot --headless -v --export-release "Linux/X11 64-bit" ./build/linux-64bit/RGProjetA_dev_linux.x86_64
 
       - name: Give execute permission
         run: |
-          chmod +x ./build/linux-64bit/$EXPORT_NAME.x86_64
-
-      - name: Create tar.gz archive
-        run: |
-          cd build
-          tar zcvf linux-64bit.tar.gz linux-64bit
+          chmod +x ./build/linux-64bit/RGProjetA_dev_linux.x86_64
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
-          name: linux-64bit
-          path: ./build/linux-64bit.tar.gz
+          name: RGProjetA_dev_linux.x86_64
+          path: ./build/linux-64bit
           retention-days: 30
-
-
-  # export-web:
-  #   name: Web export
-  #   runs-on: ubuntu-latest
-  #   container:
-  #     image: docker://barichello/godot-ci:4.2.1
-
-  #   steps:
-
-  #     - name: Checkout 
-  #       uses: actions/checkout@v4
-  #       with:
-  #         submodules: true
-
-  #     - name: Setup
-  #       run: |
-  #         mkdir -v -p build/web ~/.local/share/godot/export_templates
-  #         mv /root/.local/share/godot/export_templates/${GODOT_VERSION}.stable ~/.local/share/godot/export_templates/${GODOT_VERSION}.stable
-
-  #     - name: Build
-  #       run: godot --headless -v --export-release "Web" ./build/web/index.html
-
-  #     - name: Install rsync
-  #       run: |
-  #         apt-get update && apt-get install -y rsync
-
-  #     # Workaround for SharedArrayBuffer support on GitHub Pages
-  #     # See: https://github.com/godotengine/godot-docs/issues/7084
-  #     - name: Enable SharedArrayBuffer for GitHub Pages
-  #       run: |
-  #         cd ./build/web
-  #         apt-get install -y curl
-  #         curl -fsSL https://github.com/gzuidhof/coi-serviceworker/raw/master/coi-serviceworker.js > coi-serviceworker.js
-  #         sed -i 's#\(		<script src="index.js"></script>\)#		<script src="coi-serviceworker.js"></script>\n\1#g' index.html
-
-  #     - name: Deploy
-  #       uses: JamesIves/github-pages-deploy-action@v4
-  #       with:
-  #         token: ${{ secrets.GITHUB_TOKEN }}
-  #         single-commit: true
-  #         folder: build/web # The folder the action should deploy.

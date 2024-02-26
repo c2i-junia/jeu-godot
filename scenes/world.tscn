@@ -23670,3 +23670,5 @@ position = Vector2(383, 530)
 
 [node name="CollectableStone" parent="." instance=ExtResource("15_kk5fp")]
 position = Vector2(290, 487)
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]

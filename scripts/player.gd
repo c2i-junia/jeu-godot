@@ -3,7 +3,7 @@ extends CharacterBody2D
 # SIGNALS 
 signal leave
 
-# CONSTANTS
+# CONSTANTES
 var SPEED: float = 200.0
 var DEADZONE: float = 0.2
 
@@ -11,12 +11,14 @@ var DEADZONE: float = 0.2
 var player_id: int # Contient l'id du joueur
 var input # "Input class" instance 
 var cooldown = true
+var dash_cooldown = true
 var rock_stocked = 0
 var axe_stocked = 0
 var player_state_anim # Variable pour savoir quelle animation jouer
 var isFaster = false # Booléen pour savoir s'il faut rendre le joueur plus rapide
 var isTransparent = false
 var isEnraged = false
+var isDashing = false
 var delay_cooldown = 0 # Variable pour augmenter ou diminuer le cooldown du lancer d'objet
 var timer = Timer.new()
 var nom_pierre_lancee
@@ -47,24 +49,26 @@ func _process(_delta):
 		# On actualise la position + gestion des collisions
 		move_and_slide()
 		# On joue les différentes animations
-		play_animation(player_direction)
+		if isDashing == false:
+			play_animation(player_direction)
 		# Actualiser la position du viseur
 		actualiser_position_viseur()
 	
 	# ----- GESTION DES EFFETS DU JOUEUR -----
+	
+	# Actualiser la vitesse du joueur si la pierre n'est plus dans l'inventaire
+	if rock_stocked == 0 and isFaster == false and isDashing == false:
+		SPEED = 200.0
 	# Rendre le joueur plus rapide
 	if isFaster == true :
 		change_speed()
-	# Actualiser la vitesse du joueur si la pierre n'est plus dans l'inventaire
-	if rock_stocked == 0 and isFaster == false:
-		SPEED = 200.0
 	# Gestion de la collision et de l'opacité du joueur
 	if isTransparent == true:
 		ghost_mode()
 	# Augmenter la cadence de tir
 	if isEnraged == true:
 		rage_mode()
-	
+
 	# ----- GESTION DES EVENEMENTS -----
 	# let the player leave by pressing the "join" button
 	if input.is_action_just_pressed("join-leave"):
@@ -110,23 +114,9 @@ func _process(_delta):
 		# Ajout d'un compteur pour ne pas relancer instananement
 		await get_tree().create_timer(0.6 + delay_cooldown).timeout
 		cooldown = true
-	
-	#if input.is_action_just_pressed("lancer_pierre") and player_state == "alive" and cooldown and axe_stocked > 0:
-		## Lancer de la hache
-		#cooldown = false
-		#var axe_instance = axe.instantiate()
-		## Calcul de la direction 
-		#var direction2 = $Viseur.global_position - position 
-		#direction2 = direction2.normalized()
-		#axe_instance.direction = direction2
-		#axe_instance.global_position = position
-		#get_parent().add_child(axe_instance)
-		#axe_stocked -= 1
-		## Ajout d'un compteur pour ne pas relancer instananement 
-		#await get_tree().create_timer(0.6 + delay_cooldown).timeout
-		#cooldown = true
-
-
+		
+	if input.is_action_just_pressed("dash") and player_state == "alive" and isDashing == false and dash_cooldown == true:
+		dash_player()
 
 # ------------ FONCTIONS ------------
 func actualiser_position_viseur():
@@ -150,7 +140,9 @@ func play_animation(dir):
 		player_state_anim = "idle"
 	elif dir.x != 0 or dir.y != 0:
 		player_state_anim = "moving"
-	# Animer joueur
+	# Animer le joueur
+	if player_state_anim == "dash":
+		$AnimatedSprite2D.play("dash")
 	if player_state_anim == "idle":
 		$AnimatedSprite2D.play("idle")
 	if player_state_anim == "moving":
@@ -177,14 +169,22 @@ func _on_area_2d_area_entered(area):
 func _on_animated_sprite_2d_animation_finished():
 	if $AnimatedSprite2D.animation == "death":
 		$AnimatedSprite2D.play("dead")
+	if $AnimatedSprite2D.animation == "dash":
+		isDashing = false
+		SPEED = 200.0
+		await get_tree().create_timer(3.0).timeout
+		dash_cooldown = true
 
 # ------------ EFFETS DES POTIONS ------------
 # Fonctions des effets des items sur le joueur
+
+# Rendre le joueur plus rapide
 func change_speed():
 	SPEED = 500.0
 	await get_tree().create_timer(3.0).timeout
 	isFaster = false
 
+# Rendre le joueur transparent et lui permettre de traverser les murs
 func ghost_mode():
 	get_node("CollisionShape2D").disabled = true
 	$AnimatedSprite2D.self_modulate.a = 0.5
@@ -193,8 +193,15 @@ func ghost_mode():
 	$AnimatedSprite2D.self_modulate.a = 1
 	isTransparent = false
 
+# Accélerer la vitesse de tir
 func rage_mode():
 	delay_cooldown = -0.5
 	await get_tree().create_timer(6.0).timeout
 	isEnraged = false
 	delay_cooldown = 0
+
+func dash_player():
+	isDashing = true
+	dash_cooldown = false
+	SPEED = 400.0
+	$AnimatedSprite2D.play("dash")

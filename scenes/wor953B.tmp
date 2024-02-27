@@ -1,4 +1,4 @@
-[gd_scene load_steps=47 format=3 uid="uid://v3bqhdbf3e71"]
+[gd_scene load_steps=48 format=3 uid="uid://v3bqhdbf3e71"]
 
 [ext_resource type="Script" path="res://scripts/world.gd" id="1_kex6r"]
 [ext_resource type="Texture2D" uid="uid://2t8ok1wr48qn" path="res://assets/grass-tileset.png" id="1_tq32y"]
@@ -15,6 +15,7 @@
 [ext_resource type="PackedScene" uid="uid://bhjkoxf2tfqe6" path="res://scenes/rage_potion.tscn" id="13_8ygqr"]
 [ext_resource type="PackedScene" uid="uid://cpfywfsh87j1" path="res://scenes/collectable_axe.tscn" id="14_ibfmb"]
 [ext_resource type="PackedScene" uid="uid://dmpisoh04ylox" path="res://scenes/collectable_stone.tscn" id="15_kk5fp"]
+[ext_resource type="AudioStream" uid="uid://b1vtogxcea1t7" path="res://assets/Audio/FANCREATED Data Knight Shovel Knight Style Original 0CCFamitracker VRC6.mp3" id="16_5btw0"]
 [ext_resource type="Script" path="res://scripts/Dummy.gd" id="17_n81te"]
 [ext_resource type="Texture2D" uid="uid://remhauw1lj6v" path="res://assets/Training Dummy Sprite Sheet.png" id="18_14r5i"]
 
@@ -23713,8 +23714,8 @@ position = Vector2(383, 530)
 position = Vector2(290, 487)
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("16_5btw0")
 volume_db = -10.0
-autoplay = true
 
 [node name="Dummy" type="Area2D" parent="."]
 position = Vector2(102, 424)

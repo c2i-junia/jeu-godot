@@ -29,6 +29,7 @@ var player_state = "alive"
 var rock = preload("res://scenes/pierre.tscn")
 var axe = preload("res://scenes/axe_weapon.tscn")
 var collectableStone = preload("res://scenes/collectable_stone.tscn")
+@onready var player_sprite = $AnimatedSprite2D
 
 func init(player_num: int, device: int):
 	player_id = player_num
@@ -141,35 +142,48 @@ func play_animation(dir):
 	elif dir.x != 0 or dir.y != 0:
 		player_state_anim = "moving"
 	# Animer le joueur
-	if player_state_anim == "dash":
-		$AnimatedSprite2D.play("dash")
-	if player_state_anim == "idle":
-		$AnimatedSprite2D.play("idle")
-	if player_state_anim == "moving":
-		if dir.x < 0:
-			$AnimatedSprite2D.play("walk_w")
-		elif dir.x > 0:
-			$AnimatedSprite2D.play("walk_e")
-		elif dir.y < 0:
-			$AnimatedSprite2D.play("walk_n")
-		elif dir.y > 0:
-			$AnimatedSprite2D.play("walk_s")
+	if player_sprite == $AnimatedSprite2D:
+		if player_state_anim == "dash":
+			player_sprite.play("dash")
+		if player_state_anim == "idle":
+			player_sprite.play("idle")
+		if player_state_anim == "moving":
+			if dir.x < 0:
+				player_sprite.play("walk_w")
+			elif dir.x > 0:
+				player_sprite.play("walk_e")
+			elif dir.y < 0:
+				player_sprite.play("walk_n")
+			elif dir.y > 0:
+				player_sprite.play("walk_s")
+	elif player_sprite == $"AnimatedSprite2D - Dwarf":
+		if (dir.x < 0):
+			player_sprite.flip_h = true
+		elif (dir.x > 0):
+			player_sprite.flip_h = false
+		if player_state_anim == "dash":
+			player_sprite.play("dash")
+		if player_state_anim == "idle":
+			player_sprite.play("idle")
+		if player_state_anim == "moving":
+			player_sprite.play("walk")
 
 func _on_area_2d_area_entered(area):
 	if area.name != nom_pierre_lancee:
 		if "Pierre" in area.name or "Weapon" in area.name:
+			$AudioStreamPlayer2D.play() # Jouer le son de mort
 			var collectableStone_instance = collectableStone.instantiate()
 			collectableStone_instance.global_position = position
 			get_parent().call_deferred("add_child", collectableStone_instance)
 			area.queue_free()
 			player_state = "dead"
 			$Viseur.visible = false
-			$AnimatedSprite2D.play("death")
+			player_sprite.play("death")
 
 func _on_animated_sprite_2d_animation_finished():
-	if $AnimatedSprite2D.animation == "death":
-		$AnimatedSprite2D.play("dead")
-	if $AnimatedSprite2D.animation == "dash":
+	if player_sprite.animation == "death":
+		player_sprite.play("dead")
+	if player_sprite.animation == "dash":
 		isDashing = false
 		SPEED = 200.0
 		await get_tree().create_timer(3.0).timeout
@@ -187,10 +201,10 @@ func change_speed():
 # Rendre le joueur transparent et lui permettre de traverser les murs
 func ghost_mode():
 	get_node("CollisionShape2D").disabled = true
-	$AnimatedSprite2D.self_modulate.a = 0.5
+	player_sprite.self_modulate.a = 0.5
 	await get_tree().create_timer(3.0).timeout
 	get_node("CollisionShape2D").disabled = false
-	$AnimatedSprite2D.self_modulate.a = 1
+	player_sprite.self_modulate.a = 1
 	isTransparent = false
 
 # Accélerer la vitesse de tir
@@ -204,4 +218,16 @@ func dash_player():
 	isDashing = true
 	dash_cooldown = false
 	SPEED = 400.0
-	$AnimatedSprite2D.play("dash")
+	player_sprite.play("dash")
+
+# Changer le skin du joueur
+# TODO: Récupérer le skin actuel, le rendre invisible, puis rendre le skin voulu visible
+func change_skin():
+	if $AnimatedSprite2D.visible == true:
+		$AnimatedSprite2D.visible = false
+		$"AnimatedSprite2D - Dwarf".visible = true
+		player_sprite = $"AnimatedSprite2D - Dwarf"
+	elif $"AnimatedSprite2D - Dwarf".visible == true:
+		$"AnimatedSprite2D - Dwarf".visible = false
+		$AnimatedSprite2D.visible = true
+		player_sprite = $AnimatedSprite2D

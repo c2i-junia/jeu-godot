@@ -11,7 +11,6 @@ var DEADZONE: float = 0.2
 var player_id: int # Contient l'id du joueur
 var input # "Input class" instance 
 var cooldown = true
-var dash_cooldown = true
 var rock_stocked = 0
 var axe_stocked = 0
 var player_state_anim # Variable pour savoir quelle animation jouer
@@ -29,7 +28,9 @@ var player_state = "alive"
 var rock = preload("res://scenes/pierre.tscn")
 var axe = preload("res://scenes/axe_weapon.tscn")
 var collectableStone = preload("res://scenes/collectable_stone.tscn")
+
 @onready var player_sprite = $AnimatedSprite2D
+@onready var dodge_cooldown = $DodgeCooldown
 
 func init(player_num: int, device: int):
 	player_id = player_num
@@ -116,7 +117,7 @@ func _process(_delta):
 		await get_tree().create_timer(0.6 + delay_cooldown).timeout
 		cooldown = true
 		
-	if input.is_action_just_pressed("dash") and player_state == "alive" and isDashing == false and dash_cooldown == true:
+	if input.is_action_just_pressed("dash") and player_state == "alive" and isDashing == false and $DodgeCooldown.value > 50:
 		dash_player()
 
 # ------------ FONCTIONS ------------
@@ -168,6 +169,7 @@ func play_animation(dir):
 		if player_state_anim == "moving":
 			player_sprite.play("walk")
 
+# TODO: Rajouter un bool pour que le joueur ne meurt pas quand la hache revient vers lui
 func _on_area_2d_area_entered(area):
 	if area.name != nom_pierre_lancee:
 		if "Pierre" in area.name or "Weapon" in area.name:
@@ -186,8 +188,7 @@ func _on_animated_sprite_2d_animation_finished():
 	if player_sprite.animation == "dash":
 		isDashing = false
 		SPEED = 200.0
-		await get_tree().create_timer(3.0).timeout
-		dash_cooldown = true
+		await get_tree().create_timer(1.0).timeout
 
 # ------------ EFFETS DES POTIONS ------------
 # Fonctions des effets des items sur le joueur
@@ -199,6 +200,7 @@ func change_speed():
 	isFaster = false
 
 # Rendre le joueur transparent et lui permettre de traverser les murs
+# TODO: Choisisr quels murs le joueur peut traverser
 func ghost_mode():
 	get_node("CollisionShape2D").disabled = true
 	player_sprite.self_modulate.a = 0.5
@@ -214,13 +216,15 @@ func rage_mode():
 	isEnraged = false
 	delay_cooldown = 0
 
+# TODO: Faire en sorte que le joueur ne puisse pas se déplacer sur les côtés pendant le dash
 func dash_player():
 	isDashing = true
-	dash_cooldown = false
 	SPEED = 400.0
+	$DodgeCooldown.value -= 50
+	$DodgeCooldown.can_regen = false
+	$DodgeCooldown.timer = 0
 	player_sprite.play("dash")
-
-# Changer le skin du joueur
+	
 # TODO: Récupérer le skin actuel, le rendre invisible, puis rendre le skin voulu visible
 func change_skin():
 	if $AnimatedSprite2D.visible == true:

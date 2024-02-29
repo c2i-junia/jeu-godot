@@ -1,13 +1,13 @@
 extends Area2D
 
-var speed = 450 # Vitesse de la fleche
+var speed = 450
 var maxDistance = 250
 var travelledDistance = 0
 var direction
 var isReturning = false
 
 func _ready():
-	set_as_top_level(true) # La hache sera vue par dessus nimporte quel objet
+	set_as_top_level(true) # La hache sera vue par dessus n'importe quel objet
 	var originalPositionAxe = position
 	
 func _process(delta):

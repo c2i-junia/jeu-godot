@@ -117,7 +117,7 @@ func _process(_delta):
 		await get_tree().create_timer(0.6 + delay_cooldown).timeout
 		cooldown = true
 		
-	if input.is_action_just_pressed("dash") and player_state == "alive" and isDashing == false and $DodgeCooldown.value > 50:
+	if input.is_action_just_pressed("dash") and player_state == "alive" and isDashing == false and $DodgeCooldown.value >= 50:
 		dash_player()
 
 # ------------ FONCTIONS ------------

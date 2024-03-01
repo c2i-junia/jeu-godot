@@ -7,7 +7,7 @@
 [ext_resource type="AudioStream" uid="uid://b3o3cit8870b8" path="res://assets/Audio/steve_old_hurt_sound.mp3" id="5_u5j4a"]
 [ext_resource type="Texture2D" uid="uid://ro3p434w2fwc" path="res://assets/Wheel-Base.png" id="6_hk3lr"]
 [ext_resource type="Texture2D" uid="uid://cjyym0x5hq7yt" path="res://assets/Wheel-Base-Green.png" id="7_1d8tr"]
-[ext_resource type="Script" path="res://scenes/dash.gd" id="8_er34j"]
+[ext_resource type="Script" path="res://scripts/dash.gd" id="8_er34j"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jfgvi"]
 atlas = ExtResource("2_o6rei")

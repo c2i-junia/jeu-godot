@@ -6,7 +6,6 @@ var isInRange = false
 
 func _physics_process(_delta):
 	if isInRange == true and player_instance.input.is_action_just_pressed("ramasser_pierre"):
-		#player_main_node.visible = false
 		player_main_node.change_skin()
 
 func _on_body_entered(body):

@@ -9,13 +9,15 @@ func _ready():
 	$PlayerManager.player_joined.connect(spawn_player)
 	$PlayerManager.player_left.connect(delete_player)
 	spawn_positions = [$Spawn1.position, $Spawn2.position, $Spawn3.position, $Spawn4.position]
+	if not get_tree().root.has_node("res://scenes/player_manager.tscn"):
+		get_tree().root.add_child(preload("res://scenes/player_manager.tscn").instantiate())
 	print(Global.players_in_game)
 	if Global.players_in_game != {}:
 		for i in Global.players_in_game:
 			Global.players_in_game[i].position = spawn_positions[i]
 			#get_node("PlayerManager").get_player_device(i) = -1
 			print(get_node("PlayerManager").get_player_device(i))
-			print(get_node("PlayerManager").player_datas)
+			#print(get_node("PlayerManager").player_datas)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):

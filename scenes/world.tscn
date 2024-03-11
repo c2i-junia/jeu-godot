@@ -1,7 +1,7 @@
 [gd_scene load_steps=10 format=3 uid="uid://v3bqhdbf3e71"]
 
 [ext_resource type="Script" path="res://scripts/world.gd" id="1_kex6r"]
-[ext_resource type="Script" path="res://scripts/player_manager.gd" id="2_2hvnu"]
+[ext_resource type="PackedScene" uid="uid://dvyhm2eddxqpk" path="res://scenes/player_manager.tscn" id="2_0wx0n"]
 [ext_resource type="PackedScene" uid="uid://bhjkoxf2tfqe6" path="res://scenes/rage_potion.tscn" id="13_8ygqr"]
 [ext_resource type="PackedScene" uid="uid://cpfywfsh87j1" path="res://scenes/collectable_axe.tscn" id="14_ibfmb"]
 [ext_resource type="PackedScene" uid="uid://dmpisoh04ylox" path="res://scenes/collectable_stone.tscn" id="15_kk5fp"]
@@ -21,8 +21,7 @@ b = Vector2(1152, 0)
 y_sort_enabled = true
 script = ExtResource("1_kex6r")
 
-[node name="PlayerManager" type="Node" parent="."]
-script = ExtResource("2_2hvnu")
+[node name="PlayerManager" parent="." instance=ExtResource("2_0wx0n")]
 
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = SubResource("TileSet_b1sqs")

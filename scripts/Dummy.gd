@@ -13,7 +13,6 @@ func _on_body_entered(body):
 		player_instance = body
 		player_main_node = get_path_to(body)
 		player_main_node = get_node(player_main_node)
-		print(player_main_node)
 		isInRange = true
 
 func _on_body_exited(body):

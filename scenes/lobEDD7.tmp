@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://c0aoic4lxugwv"]
+[gd_scene load_steps=14 format=3 uid="uid://c0aoic4lxugwv"]
 
 [ext_resource type="Script" path="res://scripts/world.gd" id="1_dcex2"]
 [ext_resource type="Script" path="res://scripts/player_manager.gd" id="1_nm5de"]
@@ -6,6 +6,10 @@
 [ext_resource type="AudioStream" uid="uid://b65na7qcybpa8" path="res://assets/Audio/When rushjet1 and danooct1 get bored.mp3" id="3_0ltj5"]
 [ext_resource type="PackedScene" uid="uid://0xcsnhis62a7" path="res://scenes/dummy.tscn" id="4_5xlvb"]
 [ext_resource type="Script" path="res://scripts/game_entrance.gd" id="5_wm5r2"]
+[ext_resource type="PackedScene" uid="uid://bhjkoxf2tfqe6" path="res://scenes/rage_potion.tscn" id="7_6rfk8"]
+[ext_resource type="PackedScene" uid="uid://6nxsvgcw417n" path="res://scenes/speed_potion.tscn" id="8_87lkv"]
+[ext_resource type="PackedScene" uid="uid://dmpisoh04ylox" path="res://scenes/collectable_stone.tscn" id="9_x0q46"]
+[ext_resource type="PackedScene" uid="uid://cpfywfsh87j1" path="res://scenes/collectable_axe.tscn" id="10_wmkmc"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_x6ci3"]
 texture = ExtResource("2_iojwe")
@@ -2253,6 +2257,7 @@ script = ExtResource("1_nm5de")
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_0ltj5")
 volume_db = -11.0
+autoplay = true
 
 [node name="TileMap" type="TileMap" parent="."]
 texture_filter = 1
@@ -2294,6 +2299,45 @@ script = ExtResource("5_wm5r2")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="GameEntrance"]
 shape = SubResource("RectangleShape2D_24lxa")
+
+[node name="RagePotion" parent="." instance=ExtResource("7_6rfk8")]
+position = Vector2(231, 343)
+
+[node name="RagePotion2" parent="." instance=ExtResource("7_6rfk8")]
+position = Vector2(285, 170)
+
+[node name="SpeedPotion" parent="." instance=ExtResource("8_87lkv")]
+position = Vector2(147, 378)
+
+[node name="SpeedPotion2" parent="." instance=ExtResource("8_87lkv")]
+position = Vector2(366, 493)
+
+[node name="CollectableStone" parent="." instance=ExtResource("9_x0q46")]
+position = Vector2(161, 309)
+
+[node name="CollectableStone2" parent="." instance=ExtResource("9_x0q46")]
+position = Vector2(426, 198)
+
+[node name="CollectableStone3" parent="." instance=ExtResource("9_x0q46")]
+position = Vector2(420, 346)
+
+[node name="CollectableStone4" parent="." instance=ExtResource("9_x0q46")]
+position = Vector2(561, 523)
+
+[node name="CollectableAxe" parent="." instance=ExtResource("10_wmkmc")]
+position = Vector2(281, 405)
+
+[node name="CollectableAxe2" parent="." instance=ExtResource("10_wmkmc")]
+position = Vector2(422, 279)
+
+[node name="CollectableAxe3" parent="." instance=ExtResource("10_wmkmc")]
+position = Vector2(552, 486)
+
+[node name="CollectableAxe4" parent="." instance=ExtResource("10_wmkmc")]
+position = Vector2(646, 507)
+
+[node name="CollectableStone5" parent="." instance=ExtResource("9_x0q46")]
+position = Vector2(481, 522)
 
 [connection signal="body_entered" from="GameEntrance" to="GameEntrance" method="_on_body_entered"]
 [connection signal="body_exited" from="GameEntrance" to="GameEntrance" method="_on_body_exited"]

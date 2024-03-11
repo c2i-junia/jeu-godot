@@ -4,10 +4,8 @@
 [ext_resource type="Texture2D" uid="uid://u1m4vn5uiyi4" path="res://assets/rock.png" id="2_s4cwx"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_73e5t"]
-radius = 8.0
 
 [node name="CollectableStone" type="Area2D"]
-position = Vector2(699, 511)
 script = ExtResource("1_v4pgx")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

@@ -4,7 +4,7 @@ extends CharacterBody2D
 signal leave
 
 # CONSTANTES
-var SPEED: float = 200.0
+var SPEED: float = 250.0
 var DEADZONE: float = 0.2
 
 # VARIABLES 
@@ -28,6 +28,7 @@ var player_state = "alive"
 var rock = preload("res://scenes/pierre.tscn")
 var axe = preload("res://scenes/axe_weapon.tscn")
 var collectableStone = preload("res://scenes/collectable_stone.tscn")
+var collectableAxe = preload("res://scenes/collectable_axe.tscn")
 
 @onready var player_sprite = $AnimatedSprite2D
 @onready var dodge_cooldown = $DodgeCooldown
@@ -108,7 +109,9 @@ func _process(_delta):
 		axe_instance.direction = direction2
 		# rock_instance.rotation = angle
 		axe_instance.global_position = position
-		axe_instance.name = "Weapon" + str(index)
+		axe_instance.name = "AxeProjectile" + str(index)
+		axe_instance.thrower_name = get_name() # Récuperer le nom du joueur pour savoir qui a lancé l'arme
+		axe_instance.thrower_node = self
 		index += 1
 		nom_pierre_lancee = axe_instance.name
 		get_parent().add_child(axe_instance)
@@ -125,6 +128,7 @@ func actualiser_position_viseur():
 	var device = get_node("../PlayerManager").get_player_device(player_id)
 	if device == -1:
 		$Viseur.global_position = get_global_mouse_position()
+		print("Actualisation")
 	elif device == 0 or device == 1:
 		var joy_x = input.get_joy_axis(2) # Axe X du joystick gauche
 		var joy_y = input.get_joy_axis(3) # Axe Y du joystick gauche
@@ -169,14 +173,22 @@ func play_animation(dir):
 		if player_state_anim == "moving":
 			player_sprite.play("walk")
 
-# TODO: Rajouter un bool pour que le joueur ne meurt pas quand la hache revient vers lui
 func _on_area_2d_area_entered(area):
 	if area.name != nom_pierre_lancee:
-		if "Pierre" in area.name or "Weapon" in area.name:
+		if "Pierre" in area.name:
 			$AudioStreamPlayer2D.play() # Jouer le son de mort
 			var collectableStone_instance = collectableStone.instantiate()
 			collectableStone_instance.global_position = position
 			get_parent().call_deferred("add_child", collectableStone_instance)
+			area.queue_free()
+			player_state = "dead"
+			$Viseur.visible = false
+			player_sprite.play("death")
+		if "AxeProjectile" in area.name and area.thrower_name != self.name:
+			$AudioStreamPlayer2D.play() # Jouer le son de mort
+			var collectableAxe_instance = collectableAxe.instantiate()
+			collectableAxe_instance.global_position = position
+			get_parent().call_deferred("add_child", collectableAxe_instance)
 			area.queue_free()
 			player_state = "dead"
 			$Viseur.visible = false
@@ -219,7 +231,7 @@ func rage_mode():
 # TODO: Faire en sorte que le joueur ne puisse pas se déplacer sur les côtés pendant le dash
 func dash_player():
 	isDashing = true
-	SPEED = 400.0
+	SPEED = 450.0
 	$DodgeCooldown.value -= 50
 	$DodgeCooldown.can_regen = false
 	$DodgeCooldown.timer = 0

@@ -128,7 +128,6 @@ func actualiser_position_viseur():
 	var device = get_node("../PlayerManager").get_player_device(player_id)
 	if device == -1:
 		$Viseur.global_position = get_global_mouse_position()
-		print("Actualisation")
 	elif device == 0 or device == 1:
 		var joy_x = input.get_joy_axis(2) # Axe X du joystick gauche
 		var joy_y = input.get_joy_axis(3) # Axe Y du joystick gauche

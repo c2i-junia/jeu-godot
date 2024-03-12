@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://b65na7qcybpa8"
+path="res://.godot/imported/When rushjet1 and danooct1 get bored.mp3-2e6bf3c89ba3f493ba6e1c360649d7cf.mp3str"
+
+[deps]
+
+source_file="res://assets/Audio/When rushjet1 and danooct1 get bored.mp3"
+dest_files=["res://.godot/imported/When rushjet1 and danooct1 get bored.mp3-2e6bf3c89ba3f493ba6e1c360649d7cf.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

@@ -1,11 +1,10 @@
 [gd_scene load_steps=4 format=3 uid="uid://bhjkoxf2tfqe6"]
 
-[ext_resource type="Script" path="res://scripts/RagePotion.gd" id="1_yb6wc"]
+[ext_resource type="Script" path="res://scripts/rage_potion.gd" id="1_yb6wc"]
 [ext_resource type="Texture2D" uid="uid://dtoblofrdjp01" path="res://assets/red_potion.png" id="2_12vq5"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_e6527"]
-radius = 8.0
-height = 20.0
+height = 24.0
 
 [node name="RagePotion" type="Area2D"]
 script = ExtResource("1_yb6wc")

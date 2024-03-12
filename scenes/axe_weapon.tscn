@@ -1,6 +1,6 @@
 [gd_scene load_steps=13 format=3 uid="uid://byefdqqga8ynt"]
 
-[ext_resource type="Script" path="res://scripts/AxeWeapon.gd" id="1_wfphw"]
+[ext_resource type="Script" path="res://scripts/axe_projectile.gd" id="1_wfphw"]
 [ext_resource type="Texture2D" uid="uid://c7uhbcoo4bsdf" path="res://assets/axe_spin_spritesheet.png" id="2_kqc10"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_s67nn"]

@@ -10,7 +10,6 @@ signal player_left(player)
 # map from player integer to dictionary of data
 # the existence of a key in this dictionary means this player is joined.
 # use get_player_data() and set_player_data() to use this dictionary.
-var player_data: Dictionary = {}
 
 const MAX_PLAYERS = 8
 
@@ -19,7 +18,7 @@ func join(device: int):
 	if player >= 0:
 		# initialize default player data here
 		# "team" and "car" are remnants from my game just to provide an example
-		player_data[player] = {
+		Global.player_data[player] = {
 			"device": device,
 			"team":0,
 			"car":"muscle",
@@ -27,15 +26,15 @@ func join(device: int):
 		player_joined.emit(player)
 
 func leave(player: int):
-	if player_data.has(player):
-		player_data.erase(player)
+	if Global.player_data.has(player):
+		Global.player_data.erase(player)
 		player_left.emit(player)
 
 func get_player_count():
-	return player_data.size()
+	return Global.player_data.size()
 
 func get_player_indexes():
-	return player_data.keys()
+	return Global.player_data.keys()
 
 func get_player_device(player: int):
 	return get_player_data(player, "device")
@@ -43,17 +42,17 @@ func get_player_device(player: int):
 # get player data.
 # null means it doesn't exist.
 func get_player_data(player: int, key: StringName):
-	if player_data.has(player) and player_data[player].has(key):
-		return player_data[player][key]
+	if Global.player_data.has(player) and Global.player_data[player].has(key):
+		return Global.player_data[player][key]
 	return null
 
 # set player data to get later
 func set_player_data(player: int, key: StringName, value: Variant):
 	# if this player is not joined, don't do anything:
-	if !player_data.has(player):
+	if !Global.player_data.has(player):
 		return
 	
-	player_data[player][key] = value
+	Global.player_data[player][key] = value
 
 # call this from a loop in the main menu or anywhere they can join
 # this is an example of how to look for an action on all devices
@@ -66,14 +65,14 @@ func handle_join_input():
 # this is an example of how to look for an action on all players
 # note the difference between this and handle_join_input(). players vs devices.
 func someone_wants_to_start() -> bool:
-	for player in player_data:
+	for player in Global.player_data:
 		var device = get_player_device(player)
 		if MultiplayerInput.is_action_just_pressed(device, "start"):
 			return true
 	return false
 
 func is_device_joined(device: int) -> bool:
-	for player_id in player_data:
+	for player_id in Global.player_data:
 		var d = get_player_device(player_id)
 		if device == d: return true
 	return false
@@ -82,7 +81,7 @@ func is_device_joined(device: int) -> bool:
 # returns -1 if there is no room for a new player.
 func next_player() -> int:
 	for i in MAX_PLAYERS:
-		if !player_data.has(i): return i
+		if !Global.player_data.has(i): return i
 	return -1
 
 # returns an array of all valid devices that are *not* associated with a joined player

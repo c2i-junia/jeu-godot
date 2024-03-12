@@ -9,6 +9,9 @@ func _ready():
 	$PlayerManager.player_joined.connect(spawn_player)
 	$PlayerManager.player_left.connect(delete_player)
 	spawn_positions = [$Spawn1.position, $Spawn2.position, $Spawn3.position, $Spawn4.position]
+	if Global.players_in_game != {}:
+		for i in Global.players_in_game:
+			Global.players_in_game[i].position = spawn_positions[i]
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
@@ -25,8 +28,10 @@ func spawn_player(player_id: int):
 	player_node.init(player_id, device)
 	# add the player to the tree
 	add_child(player_node)
+	player_node.name = "Player" + str(player_id)
 	# random spawn position
 	player_node.position = spawn_positions[player_id]
+	Global.players_in_game[player_id] = player_node
 
 func delete_player(player_id: int):
 	player_nodes[player_id].queue_free()

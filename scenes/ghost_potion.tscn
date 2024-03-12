@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://cylhnsd1mi0yn"]
 
-[ext_resource type="Script" path="res://scripts/GhostPotion.gd" id="1_0fti8"]
+[ext_resource type="Script" path="res://scripts/ghost_potion.gd" id="1_0fti8"]
 [ext_resource type="Texture2D" uid="uid://cfoicb0xfp0w7" path="res://assets/green_potion.png" id="2_wlv8u"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_80tyu"]

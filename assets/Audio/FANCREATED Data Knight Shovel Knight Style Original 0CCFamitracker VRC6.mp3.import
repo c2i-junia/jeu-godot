@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://b1vtogxcea1t7"
+path="res://.godot/imported/FANCREATED Data Knight Shovel Knight Style Original 0CCFamitracker VRC6.mp3-35180486bf8477c6c383349183720fac.mp3str"
+
+[deps]
+
+source_file="res://assets/Audio/FANCREATED Data Knight Shovel Knight Style Original 0CCFamitracker VRC6.mp3"
+dest_files=["res://.godot/imported/FANCREATED Data Knight Shovel Knight Style Original 0CCFamitracker VRC6.mp3-35180486bf8477c6c383349183720fac.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

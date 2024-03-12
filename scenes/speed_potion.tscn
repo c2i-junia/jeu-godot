@@ -1,11 +1,11 @@
 [gd_scene load_steps=4 format=3 uid="uid://6nxsvgcw417n"]
 
-[ext_resource type="Script" path="res://scripts/SpeedPotion.gd" id="1_ueqoj"]
+[ext_resource type="Script" path="res://scripts/speed_potion.gd" id="1_ueqoj"]
 [ext_resource type="Texture2D" uid="uid://b4mka5bcj7f7s" path="res://assets/blue_potion.png" id="2_tr8f5"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_uuylt"]
-radius = 6.0
-height = 18.6667
+radius = 8.0
+height = 22.6667
 
 [node name="SpeedPotion" type="Area2D"]
 script = ExtResource("1_ueqoj")

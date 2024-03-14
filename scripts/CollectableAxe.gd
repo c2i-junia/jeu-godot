@@ -4,8 +4,14 @@ var player_instance
 var isInRange = false
 
 func _physics_process(_delta):
-	if isInRange == true and player_instance.input.is_action_just_pressed("ramasser_pierre") and player_instance.rock_stocked == 0:
-		player_instance.axe_stocked += 3
+	if isInRange == true and player_instance.input.is_action_just_pressed("ramasser_pierre"):
+		if player_instance.weapon_stocked["type"] == "null":
+			player_instance.weapon_stocked["type"] = "axe"
+			player_instance.weapon_stocked["count"] = 3
+			
+		elif player_instance.weapon_stocked["type"] == "axe":
+			player_instance.weapon_stocked["count"] += 3
+		
 		player_instance.SPEED = 100.0
 		isInRange = false
 		queue_free()

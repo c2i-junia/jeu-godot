@@ -11,8 +11,12 @@ var DEADZONE: float = 0.2
 var player_id: int # Contient l'id du joueur
 var input # "Input class" instance 
 var cooldown = true
-var rock_stocked = 0
-var axe_stocked = 0
+
+var weapon_stocked = {#Dictionnaire stockant l'arme que le joueur a dans son inventaire ainsi que son nombre
+	"type": "null",
+	"count": 0
+};
+
 var player_state_anim # Variable pour savoir quelle animation jouer
 var isFaster = false # Booléen pour savoir s'il faut rendre le joueur plus rapide
 var isTransparent = false
@@ -56,7 +60,7 @@ func _process(_delta):
 	if isFaster == true :
 		change_speed()
 	# Actualiser la vitesse du joueur si la pierre n'est plus dans l'inventaire
-	if rock_stocked == 0 and isFaster == false:
+	if weapon_stocked["type"] == "null" and isFaster == false:
 		SPEED = 200.0
 	# Gestion de la collision et de l'opacité du joueur
 	if isTransparent == true:
@@ -73,43 +77,45 @@ func _process(_delta):
 		leave.emit(player_id)
 
 	# Gestion de l'evenement "lancer objet"
-	if input.is_action_just_pressed("lancer_pierre") and player_state == "alive" and cooldown and rock_stocked > 0:
+	if input.is_action_just_pressed("lancer_pierre") and player_state == "alive" and cooldown and weapon_stocked["count"] > 0:
 		# Lancer de la pierre
 		cooldown = false
-		var rock_instance = rock.instantiate()
-		# Calcul de la direction
-		var direction2 = $Viseur.global_position - position
-		direction2 = direction2.normalized()
-		rock_instance.direction = direction2
-		# rock_instance.rotation = angle
-		rock_instance.global_position = position
-		rock_instance.name = "Pierre" + str(index)
-		index += 1
-		nom_pierre_lancee = rock_instance.name
-		get_parent().add_child(rock_instance)
-		rock_stocked -= 1
+		
+		if weapon_stocked["type"] == "rock":
+			var rock_instance = rock.instantiate()
+			# Calcul de la direction
+			var direction2 = $Viseur.global_position - position
+			direction2 = direction2.normalized()
+			rock_instance.direction = direction2
+			# rock_instance.rotation = angle
+			rock_instance.global_position = position
+			rock_instance.name = "Pierre" + str(index)
+			index += 1
+			nom_pierre_lancee = rock_instance.name
+			get_parent().add_child(rock_instance)
+			
+		elif weapon_stocked["type"] == "axe":
+			var axe_instance = axe.instantiate()
+			# Calcul de la direction
+			var direction2 = $Viseur.global_position - position
+			direction2 = direction2.normalized()
+			axe_instance.direction = direction2
+			# rock_instance.rotation = angle
+			axe_instance.global_position = position
+			axe_instance.name = "Axe" + str(index)
+			index += 1
+			nom_pierre_lancee = axe_instance.name
+			get_parent().add_child(axe_instance)
+		
+		
+		weapon_stocked["count"] -= 1 #Le joueur a lancé son arme, on décrémente de 1
+		#Si le joueur n'a plus d'arme en réserve, on réinitialise le type d'arme
+		manageEmptyWeaponStock()
+		
 		# Ajout d'un compteur pour ne pas relancer instananement
 		await get_tree().create_timer(0.6 + delay_cooldown).timeout
 		cooldown = true
-	
-	if input.is_action_just_pressed("lancer_pierre") and player_state == "alive" and cooldown and axe_stocked > 0:
-		# Lancer de la pierre
-		cooldown = false
-		var axe_instance = axe.instantiate()
-		# Calcul de la direction
-		var direction2 = $Viseur.global_position - position
-		direction2 = direction2.normalized()
-		axe_instance.direction = direction2
-		# rock_instance.rotation = angle
-		axe_instance.global_position = position
-		axe_instance.name = "Weapon" + str(index)
-		index += 1
-		nom_pierre_lancee = axe_instance.name
-		get_parent().add_child(axe_instance)
-		axe_stocked -= 1
-		# Ajout d'un compteur pour ne pas relancer instananement
-		await get_tree().create_timer(0.6 + delay_cooldown).timeout
-		cooldown = true
+		
 	
 	#if input.is_action_just_pressed("lancer_pierre") and player_state == "alive" and cooldown and axe_stocked > 0:
 		## Lancer de la hache
@@ -177,6 +183,11 @@ func _on_area_2d_area_entered(area):
 func _on_animated_sprite_2d_animation_finished():
 	if $AnimatedSprite2D.animation == "death":
 		$AnimatedSprite2D.play("dead")
+		
+
+func manageEmptyWeaponStock():
+	if weapon_stocked["count"] == 0:
+		weapon_stocked["type"] = "null"
 
 # ------------ EFFETS DES POTIONS ------------
 # Fonctions des effets des items sur le joueur

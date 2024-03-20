@@ -1,12 +1,40 @@
-[gd_scene load_steps=3 format=3 uid="uid://bqwhsrsfxwrl3"]
+[gd_scene load_steps=7 format=3 uid="uid://bqwhsrsfxwrl3"]
 
+[ext_resource type="Script" path="res://scripts/rock.gd" id="1_k1hnt"]
 [ext_resource type="Texture2D" uid="uid://u1m4vn5uiyi4" path="res://assets/rock.png" id="1_w6pyd"]
+[ext_resource type="AudioStream" uid="uid://bpsgi558nf3jh" path="res://assets/Audio/coin-collect-retro-8-bit-sound-effect-145251.mp3" id="2_66smc"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_mvdcs"]
+font_size = 12
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_2il6a"]
 radius = 6.0
 height = 50.0
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_wyo1f"]
+radius = 48.0
+
 [node name="Rock" type="StaticBody2D"]
+script = ExtResource("1_k1hnt")
+
+[node name="Label" type="Label" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -59.0
+offset_top = -55.0
+offset_right = 60.0
+offset_bottom = -38.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "PRESS F TO COLLECT"
+label_settings = SubResource("LabelSettings_mvdcs")
+
+[node name="RockCollectSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_66smc")
+volume_db = -2.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(3, -8)
@@ -17,3 +45,12 @@ texture = ExtResource("1_w6pyd")
 position = Vector2(-1, 18)
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_2il6a")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(-1, 2)
+shape = SubResource("CircleShape2D_wyo1f")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]

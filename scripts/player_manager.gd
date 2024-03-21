@@ -20,8 +20,9 @@ func join(device: int):
 		# "team" and "car" are remnants from my game just to provide an example
 		Global.player_data[player] = {
 			"device": device,
-			"team":0,
-			"car":"muscle",
+			"player_skin": "knight",
+			"ready": false,
+			"score": 0
 		}
 		player_joined.emit(player)
 

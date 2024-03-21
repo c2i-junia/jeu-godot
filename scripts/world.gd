@@ -16,6 +16,9 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
 	$PlayerManager.handle_join_input()
+	if Global.worlds_data["number_player"] == 1 and Global.worlds_data["game_state"] == "in_game":
+		print("On a un vainqueur !")
+		Global.worlds_data["game_state"] = "changing_map"
 
 func spawn_player(player_id: int):
 	# create the player node
@@ -32,6 +35,7 @@ func spawn_player(player_id: int):
 	# random spawn position
 	player_node.position = spawn_positions[player_id]
 	Global.players_in_game[player_id] = player_node
+	Global.worlds_data["number_player"] += 1
 
 func delete_player(player_id: int):
 	player_nodes[player_id].queue_free()

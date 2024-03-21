@@ -30,7 +30,7 @@ var axe = preload("res://scenes/axe_weapon.tscn")
 var collectableStone = preload("res://scenes/collectable_stone.tscn")
 var collectableAxe = preload("res://scenes/collectable_axe.tscn")
 
-@onready var player_sprite = $AnimatedSprite2D
+@onready var player_sprite = $KnightSprite
 @onready var dodge_cooldown = $DodgeCooldown
 
 func init(player_num: int, device: int):
@@ -146,7 +146,7 @@ func play_animation(dir):
 	elif dir.x != 0 or dir.y != 0:
 		player_state_anim = "moving"
 	# Animer le joueur
-	if player_sprite == $AnimatedSprite2D:
+	if player_sprite == $KnightSprite:
 		if player_state_anim == "dash":
 			player_sprite.play("dash")
 		if player_state_anim == "idle":
@@ -160,7 +160,7 @@ func play_animation(dir):
 				player_sprite.play("walk_n")
 			elif dir.y > 0:
 				player_sprite.play("walk_s")
-	elif player_sprite == $"AnimatedSprite2D - Dwarf":
+	elif player_sprite == $DwarfSprite:
 		if (dir.x < 0):
 			player_sprite.flip_h = true
 		elif (dir.x > 0):
@@ -196,6 +196,7 @@ func _on_area_2d_area_entered(area):
 func _on_animated_sprite_2d_animation_finished():
 	if player_sprite.animation == "death":
 		player_sprite.play("dead")
+		Global.worlds_data["number_player"] -= 1
 	if player_sprite.animation == "dash":
 		isDashing = false
 		SPEED = 200.0
@@ -235,14 +236,15 @@ func dash_player():
 	$DodgeCooldown.can_regen = false
 	$DodgeCooldown.timer = 0
 	player_sprite.play("dash")
-	
-# TODO: Récupérer le skin actuel, le rendre invisible, puis rendre le skin voulu visible
-func change_skin():
-	if $AnimatedSprite2D.visible == true:
-		$AnimatedSprite2D.visible = false
-		$"AnimatedSprite2D - Dwarf".visible = true
-		player_sprite = $"AnimatedSprite2D - Dwarf"
-	elif $"AnimatedSprite2D - Dwarf".visible == true:
-		$"AnimatedSprite2D - Dwarf".visible = false
-		$AnimatedSprite2D.visible = true
-		player_sprite = $AnimatedSprite2D
+
+func change_skin(player_sprite_choice):
+	match player_sprite_choice:
+		0:
+			$KnightSprite.visible = true
+			$DwarfSprite.visible = false
+			player_sprite = $KnightSprite
+		1:
+			$KnightSprite.visible = false
+			$DwarfSprite.visible = true
+			player_sprite = $DwarfSprite
+	player_state = "alive"

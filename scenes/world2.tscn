@@ -1,16 +1,14 @@
-[gd_scene load_steps=12 format=3 uid="uid://c0aoic4lxugwv"]
+[gd_scene load_steps=9 format=3 uid="uid://dqm85levxptn0"]
 
-[ext_resource type="Script" path="res://scripts/world.gd" id="1_dcex2"]
-[ext_resource type="Texture2D" uid="uid://cwhxtupi2qqfa" path="res://assets/serene_village_16x16.png" id="2_iojwe"]
-[ext_resource type="PackedScene" uid="uid://dvyhm2eddxqpk" path="res://scenes/player_manager.tscn" id="2_ytg27"]
-[ext_resource type="AudioStream" uid="uid://b65na7qcybpa8" path="res://assets/Audio/When rushjet1 and danooct1 get bored.mp3" id="3_0ltj5"]
-[ext_resource type="PackedScene" uid="uid://0xcsnhis62a7" path="res://scenes/dummy.tscn" id="4_5xlvb"]
-[ext_resource type="Script" path="res://scripts/game_entrance.gd" id="5_wm5r2"]
-[ext_resource type="PackedScene" uid="uid://bqwhsrsfxwrl3" path="res://scenes/rock.tscn" id="7_mivt6"]
-[ext_resource type="PackedScene" uid="uid://cpfywfsh87j1" path="res://scenes/collectable_axe.tscn" id="8_sqgjo"]
+[ext_resource type="Script" path="res://scripts/world.gd" id="1_rlwj2"]
+[ext_resource type="PackedScene" uid="uid://dvyhm2eddxqpk" path="res://scenes/player_manager.tscn" id="2_uw8ii"]
+[ext_resource type="Texture2D" uid="uid://cwhxtupi2qqfa" path="res://assets/serene_village_16x16.png" id="3_7f7xf"]
+[ext_resource type="AudioStream" uid="uid://b65na7qcybpa8" path="res://assets/Audio/When rushjet1 and danooct1 get bored.mp3" id="4_f75t5"]
+[ext_resource type="PackedScene" uid="uid://bqwhsrsfxwrl3" path="res://scenes/rock.tscn" id="7_5fyho"]
+[ext_resource type="PackedScene" uid="uid://cpfywfsh87j1" path="res://scenes/collectable_axe.tscn" id="8_c73q5"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_x6ci3"]
-texture = ExtResource("2_iojwe")
+texture = ExtResource("3_7f7xf")
 3:0/0 = 0
 3:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 3:0/0/physics_layer_0/angular_velocity = 0.0
@@ -2243,13 +2241,10 @@ texture = ExtResource("2_iojwe")
 physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_x6ci3")
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_24lxa"]
-size = Vector2(194, 104)
-
 [node name="Lobby" type="Node2D"]
-script = ExtResource("1_dcex2")
+script = ExtResource("1_rlwj2")
 
-[node name="PlayerManager" parent="." instance=ExtResource("2_ytg27")]
+[node name="PlayerManager" parent="." instance=ExtResource("2_uw8ii")]
 
 [node name="TileMap" type="TileMap" parent="."]
 texture_filter = 1
@@ -2262,16 +2257,8 @@ layer_1/name = "Props"
 layer_1/tile_data = PackedInt32Array(655376, 65536, 9, 720912, 65536, 10, 655377, 131072, 9, 720913, 131072, 10, 720911, 65536, 10, 720914, 196608, 10, 720915, 262144, 10, 524307, 65536, 8, 589843, 262144, 8, 655379, 262144, 9, 524303, 65536, 8, 524304, 262144, 8, 524305, 65536, 8, 524306, 65536, 8, 589839, 65536, 8, 655375, 65536, 9, 589842, 196608, 2, 655378, 196608, 9, 589840, 65536, 8, 589841, 327680, 2, 524308, 65536, 8, 589844, 65536, 9, 655380, 65536, 8, 720916, 262144, 10, 524309, 327680, 8, 589845, 327680, 8, 655381, 327680, 9, 720917, 327680, 10, 524302, 0, 8, 589838, 0, 8, 655374, 0, 9, 720910, 0, 10, 458766, 0, 7, 458767, 65536, 7, 458768, 131072, 7, 458769, 196608, 7, 458770, 262144, 7, 458773, 327680, 7, 458771, 196608, 7, 458772, 196608, 7, 65539, 589824, 18, 131075, 589824, 19, 196611, 589824, 20, 65540, 655360, 18, 131076, 655360, 19, 196612, 655360, 20, 65541, 720896, 18, 131077, 720896, 19, 196613, 720896, 20, 65542, 786432, 18, 131078, 786432, 19, 196614, 786432, 20, 65543, 851968, 18, 131079, 851968, 19, 196615, 851968, 20, 65547, 589824, 18, 131083, 589824, 19, 196619, 589824, 20, 65548, 655360, 18, 131084, 655360, 19, 196620, 655360, 20, 65549, 720896, 18, 131085, 720896, 19, 196621, 720896, 20, 65550, 786432, 18, 131086, 786432, 19, 196622, 786432, 20, 65551, 851968, 18, 131087, 851968, 19, 196623, 851968, 20, 327708, 589824, 18, 393244, 589824, 19, 458780, 589824, 20, 327709, 655360, 18, 393245, 655360, 19, 458781, 655360, 20, 327710, 720896, 18, 393246, 720896, 19, 458782, 720896, 20, 327711, 786432, 18, 393247, 786432, 19, 458783, 786432, 20, 327712, 851968, 18, 393248, 851968, 19, 458784, 851968, 20, 65562, 589824, 18, 131098, 589824, 19, 196634, 589824, 20, 65563, 655360, 18, 131099, 655360, 19, 196635, 655360, 20, 65564, 720896, 18, 131100, 720896, 19, 196636, 720896, 20, 65565, 786432, 18, 131101, 786432, 19, 196637, 786432, 20, 65566, 851968, 18, 131102, 851968, 19, 196638, 851968, 20, 786460, 589824, 18, 851996, 589824, 19, 917532, 589824, 20, 786461, 655360, 18, 851997, 655360, 19, 917533, 655360, 20, 786462, 720896, 18, 851998, 720896, 19, 917534, 720896, 20, 786463, 786432, 18, 851999, 786432, 19, 917535, 786432, 20, 786464, 851968, 18, 852000, 851968, 19, 917536, 851968, 20, 851972, 589824, 18, 917508, 589824, 19, 983044, 589824, 20, 851973, 655360, 18, 917509, 655360, 19, 983045, 655360, 20, 851974, 720896, 18, 917510, 720896, 19, 983046, 720896, 20, 851975, 786432, 18, 917511, 786432, 19, 983047, 786432, 20, 851976, 851968, 18, 917512, 851968, 19, 983048, 851968, 20, 786451, 458752, 14, 589830, 131072, 14, 262163, 131072, 14, 983059, 131072, 14)
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("3_0ltj5")
+stream = ExtResource("4_f75t5")
 volume_db = -11.0
-
-[node name="RichTextLabel" type="RichTextLabel" parent="."]
-offset_left = 395.0
-offset_top = 159.0
-offset_right = 750.0
-offset_bottom = 226.0
-theme_override_font_sizes/normal_font_size = 40
-text = "PRESS F TO START"
 
 [node name="Spawn1" type="Marker2D" parent="."]
 position = Vector2(351, 192)
@@ -2285,34 +2272,8 @@ position = Vector2(704, 480)
 [node name="Spawn4" type="Marker2D" parent="."]
 position = Vector2(804, 195)
 
-[node name="Dummy" parent="." instance=ExtResource("4_5xlvb")]
-position = Vector2(276, 167)
-scale = Vector2(2, 2)
-
-[node name="Dummy2" parent="." instance=ExtResource("4_5xlvb")]
-position = Vector2(378, 503)
-scale = Vector2(2, 2)
-
-[node name="Dummy3" parent="." instance=ExtResource("4_5xlvb")]
-position = Vector2(777, 503)
-scale = Vector2(2, 2)
-
-[node name="Dummy4" parent="." instance=ExtResource("4_5xlvb")]
-position = Vector2(802, 132)
-scale = Vector2(2, 2)
-
-[node name="GameEntrance" type="Area2D" parent="."]
-position = Vector2(575, 300)
-script = ExtResource("5_wm5r2")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="GameEntrance"]
-shape = SubResource("RectangleShape2D_24lxa")
-
-[node name="Rock" parent="." instance=ExtResource("7_mivt6")]
+[node name="Rock" parent="." instance=ExtResource("7_5fyho")]
 position = Vector2(247, 351)
 
-[node name="CollectableAxe" parent="." instance=ExtResource("8_sqgjo")]
+[node name="CollectableAxe" parent="." instance=ExtResource("8_c73q5")]
 position = Vector2(402, 383)
-
-[connection signal="body_entered" from="GameEntrance" to="GameEntrance" method="_on_body_entered"]
-[connection signal="body_exited" from="GameEntrance" to="GameEntrance" method="_on_body_exited"]

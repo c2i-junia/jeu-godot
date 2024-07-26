@@ -1,4 +1,10 @@
-[ CONTROLS ]
+# jeu godot
+
+Code source du jeu développé en 2023-2024 par les membres du C2I. 
+
+<br>
+
+## Configuration des touches et contrôles
 
 - **clavier/souris**
     - se connecter : espace
@@ -21,7 +27,7 @@
     - equiper_pierre : croix
     - lancer_pierre : R2, R1
 
+<br>
 
-
-[ ADDONS ]
+## Addons
  - https://github.com/matjlars/godot-multiplayer-input

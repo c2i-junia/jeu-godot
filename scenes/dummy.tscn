@@ -1,7 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://0xcsnhis62a7"]
+[gd_scene load_steps=37 format=3 uid="uid://0xcsnhis62a7"]
 
 [ext_resource type="Script" path="res://scripts/dummy.gd" id="1_xmec8"]
 [ext_resource type="Texture2D" uid="uid://remhauw1lj6v" path="res://assets/Training Dummy Sprite Sheet.png" id="2_01iij"]
+[ext_resource type="Texture2D" uid="uid://bb6j4b22s2mhq" path="res://assets/Dwarf Sprite Sheet 1.3v.png" id="3_mibq0"]
+[ext_resource type="Texture2D" uid="uid://dt8qb0jlds3wv" path="res://assets/Knight 16x16 NoWeps.png" id="4_uih7e"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_m268b"]
 atlas = ExtResource("2_01iij")
@@ -42,10 +44,204 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_osk3e"]
 size = Vector2(34, 30)
 
+[sub_resource type="LabelSettings" id="LabelSettings_km6g8"]
+font_size = 8
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c83fw"]
+atlas = ExtResource("3_mibq0")
+region = Rect2(0, 0, 64, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pa82e"]
+atlas = ExtResource("3_mibq0")
+region = Rect2(64, 0, 64, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m8op2"]
+atlas = ExtResource("3_mibq0")
+region = Rect2(128, 0, 64, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xsmml"]
+atlas = ExtResource("3_mibq0")
+region = Rect2(192, 0, 64, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_24o74"]
+atlas = ExtResource("3_mibq0")
+region = Rect2(256, 0, 64, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0d46h"]
+atlas = ExtResource("3_mibq0")
+region = Rect2(0, 64, 64, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mrlbq"]
+atlas = ExtResource("3_mibq0")
+region = Rect2(64, 64, 64, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4ot2w"]
+atlas = ExtResource("3_mibq0")
+region = Rect2(128, 64, 64, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_avq42"]
+atlas = ExtResource("3_mibq0")
+region = Rect2(192, 64, 64, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k6moy"]
+atlas = ExtResource("3_mibq0")
+region = Rect2(256, 64, 64, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a41bp"]
+atlas = ExtResource("3_mibq0")
+region = Rect2(320, 64, 64, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8148b"]
+atlas = ExtResource("3_mibq0")
+region = Rect2(384, 64, 64, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s2b3j"]
+atlas = ExtResource("4_uih7e")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l8jm1"]
+atlas = ExtResource("4_uih7e")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fs01q"]
+atlas = ExtResource("4_uih7e")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_psnib"]
+atlas = ExtResource("4_uih7e")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_86w4c"]
+atlas = ExtResource("4_uih7e")
+region = Rect2(0, 352, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0o7hc"]
+atlas = ExtResource("4_uih7e")
+region = Rect2(32, 352, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_flac6"]
+atlas = ExtResource("4_uih7e")
+region = Rect2(64, 352, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ft7jf"]
+atlas = ExtResource("4_uih7e")
+region = Rect2(96, 352, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4qw66"]
+atlas = ExtResource("4_uih7e")
+region = Rect2(128, 352, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v5855"]
+atlas = ExtResource("4_uih7e")
+region = Rect2(160, 352, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1revd"]
+atlas = ExtResource("4_uih7e")
+region = Rect2(192, 352, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1ioyv"]
+atlas = ExtResource("4_uih7e")
+region = Rect2(224, 352, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_kx2nt"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c83fw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pa82e")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m8op2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xsmml")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_24o74")
+}],
+"loop": true,
+"name": &"dwarf_idle",
+"speed": 6.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0d46h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mrlbq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4ot2w")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_avq42")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k6moy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a41bp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8148b")
+}],
+"loop": true,
+"name": &"dwarf_selected",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s2b3j")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l8jm1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fs01q")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_psnib")
+}],
+"loop": true,
+"name": &"knight_idle",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_86w4c")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0o7hc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_flac6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ft7jf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4qw66")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v5855")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1revd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1ioyv")
+}],
+"loop": true,
+"name": &"knight_selected",
+"speed": 20.0
+}]
+
 [node name="Dummy" type="Area2D"]
 script = ExtResource("1_xmec8")
 
-[node name="Sprite2D" type="AnimatedSprite2D" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_1nx0g")
 autoplay = "default"
@@ -54,5 +250,85 @@ frame_progress = 0.261308
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_osk3e")
 
+[node name="Label" type="Label" parent="."]
+texture_filter = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -49.0
+offset_top = -30.0
+offset_right = 49.0
+offset_bottom = -18.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "PRESS F TO CHANGE SKIN"
+label_settings = SubResource("LabelSettings_km6g8")
+
+[node name="Control" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_left = -35.0
+offset_top = -79.0
+offset_right = 38.0
+offset_bottom = -19.0
+
+[node name="SelectSkinSprite" type="AnimatedSprite2D" parent="Control"]
+texture_filter = 1
+position = Vector2(36, 24.5)
+sprite_frames = SubResource("SpriteFrames_kx2nt")
+animation = &"knight_idle"
+autoplay = "knight_idle"
+
+[node name="RightButton" type="Button" parent="Control"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -18.0
+offset_top = -22.0
+offset_bottom = 9.0
+grow_horizontal = 0
+grow_vertical = 2
+text = ">"
+
+[node name="LeftButton" type="Button" parent="Control"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -22.0
+offset_right = 18.0
+offset_bottom = 9.0
+grow_vertical = 2
+size_flags_horizontal = 0
+text = "<"
+
+[node name="SelectButton" type="Button" parent="Control"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -19.5
+offset_top = -18.0
+offset_right = 16.5
+offset_bottom = 2.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 8
+text = "SELECT"
+
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="body_exited" from="." to="." method="_on_body_exited"]
+[connection signal="pressed" from="Control/RightButton" to="." method="_on_right_button_pressed"]
+[connection signal="pressed" from="Control/LeftButton" to="." method="_on_left_button_pressed"]
+[connection signal="pressed" from="Control/SelectButton" to="." method="_on_select_button_pressed"]

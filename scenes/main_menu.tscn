@@ -1,71 +1,86 @@
-[gd_scene load_steps=4 format=3 uid="uid://bxmmidjxfax31"]
+[gd_scene load_steps=5 format=3 uid="uid://bxmmidjxfax31"]
 
 [ext_resource type="Script" path="res://scripts/main_menu.gd" id="1_xftwc"]
 [ext_resource type="Texture2D" uid="uid://crii328tkwjvo" path="res://assets/titre_menu_fightisen.png" id="2_ctxtw"]
 [ext_resource type="Texture2D" uid="uid://c5lxpdamknxub" path="res://assets/background_image_menu.jpg" id="2_oad1d"]
+[ext_resource type="AudioStream" uid="uid://xvyqc35t0dn0" path="res://assets/Audio/POL-final-sacrifice-short.wav" id="4_s06ae"]
 
-[node name="MainMenu" type="Node"]
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("1_xftwc")
+
+[node name="MenuMusic" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_s06ae")
+volume_db = -5.0
+autoplay = true
 
 [node name="BackgroundImage" type="TextureRect" parent="."]
 texture_filter = 1
+layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -960.0
-offset_top = -344.0
+offset_top = -384.0
 offset_right = 960.0
-offset_bottom = 736.0
+offset_bottom = 696.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("2_oad1d")
 
 [node name="Title" type="TextureRect" parent="."]
 texture_filter = 1
-anchors_preset = 8
+layout_mode = 1
+anchors_preset = 5
 anchor_left = 0.5
-anchor_top = 0.5
 anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -412.5
-offset_top = -294.0
-offset_right = 412.5
-offset_bottom = -92.0
+offset_left = -412.0
+offset_top = 76.0
+offset_right = 413.0
+offset_bottom = 278.0
 grow_horizontal = 2
-grow_vertical = 2
 texture = ExtResource("2_ctxtw")
 
-[node name="PlayButton" type="Button" parent="."]
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -150.0
-offset_top = 1.0
-offset_right = 150.0
-offset_bottom = 76.0
+offset_left = -158.0
+offset_top = -31.0
+offset_right = 158.0
+offset_bottom = 283.0
 grow_horizontal = 2
 grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = 25
+alignment = 1
+
+[node name="PlayButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
 text = "PLAY"
 
-[node name="QuitButton" type="Button" parent="."]
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -150.0
-offset_top = 126.0
-offset_right = 150.0
-offset_bottom = 201.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="SettingsButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+text = "SETTINGS"
+
+[node name="QuitButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
 text = "QUIT"
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-
-[connection signal="pressed" from="PlayButton" to="." method="_on_play_button_pressed"]
-[connection signal="pressed" from="QuitButton" to="." method="_on_quit_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/PlayButton" to="." method="_on_play_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/SettingsButton" to="." method="_on_play_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]

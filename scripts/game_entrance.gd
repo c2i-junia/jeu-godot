@@ -14,6 +14,7 @@ func _physics_process(_delta):
 		$"../RichTextLabel".visible = true
 		if player_instance.input.is_action_just_pressed("ramasser_pierre"):
 			isChangingFile = true
+			Global.worlds_data["game_state"] = "in_game"
 			for i in players_ready:
 				players_ready[i].get_parent().remove_child(players_ready[i])
 				world_node.add_child(players_ready[i])
